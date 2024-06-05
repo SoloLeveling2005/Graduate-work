@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Таблица хранит запросы на замену.
-        Schema::create('group_schedule_class_replacement_requests', function (Blueprint $table) {
+        // Таблица хранит замены.
+        Schema::create('group_schedule_class_replacements', function (Blueprint $table) {
             $table->id();
             // Новые данные. Данные по номеру занятия и дню расписания берется через groupScheduleClassId
             $table->foreignId('userTeacherId')->nullable()->constrained('user_teachers')->onUpdate('cascade')->onDelete('set null')->default(null);
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('group_schedule_class_replacement_requests');
+        Schema::dropIfExists('group_schedule_class_replacements');
     }
 };

@@ -3,99 +3,129 @@
 namespace App\Http\Controllers\AdminPanel;
 
 use App\Http\Controllers\Controller;
+use App\Models\Group;
 use Illuminate\Http\Request;
-
-use App\Models\Group as GroupModel;
-use App\Models\UserStudent as UserStudentModel;
 
 class GroupController extends Controller
 {
-    // Создание группы
-    public function create(Request $request) {
-        $user = $request->user;
+    /**
+     * Получение списка групп с фильтрацией по специальности и поиском.
+     * Возвращает id группы, литеру группы, количество студентов и ФИО куратора.
+     */
+    public function getList(Request $request)
+    {
+        $query = Group::query();
 
-        // Проверка на обладание правами редактирования пользователей.
-        if (!AdminPrivilege::where(['userAdminId'=>$user['id'],'privilege'=>'UserManager'])->first()) {
-            return response()->json(['status'=>'error', 'statusMessage'=>'У вас не хвататет прав. Необходимы права редактора пользователей.'], 403);
+        // Фильтрация по специальности
+        if ($request->has('specializationId')) {
+            $query->where('departmentId', $request->input('specializationId'));
         }
 
-        $valid_data = $request->validate([
-            'title' => 'required|unique:groups,title',
-            'departmentId' => 'reqired|exists:departments,id',
-            'userTeacherId' => 'reqired|exists:user_teachers,id',
-            'color' => 'required'
-        ]);
+        // Поиск по трем полям (литера, специальность, куратор)
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function($query) use ($search) {
+                $query->where('title', 'like', "%{$search}%")
+                      ->orWhereHas('department', function($q) use ($search) {
+                          $q->where('title', 'like', "%{$search}%");
+                      })
+                      ->orWhereHas('curator', function($q) use ($search) {
+                          $q->where('fio', 'like', "%{$search}%");
+                      });
+            });
+        }
 
-        $group = GroupModel::create([
-            'title'=>$valid_data['title'],
-            'departmentId'=>$valid_data['departmentId'],
-            'userTeacherId'=>$valid_data['userTeacherId'],
-            'color'=>$valid_data['color']
-        ]);
+        // Получение списка групп
+        $groups = $query->withCount('students')->with('curator:id,fio')->get(['id', 'title']);
 
-        return resposne()->json(['status'=>'success', 'statusMessage'=>'Группа успешно создана', 'data' => $group], 200);
+        // Форматирование ответа
+        $response = $groups->map(function($group) {
+            return [
+                'id' => $group->id,
+                'title' => $group->title,
+                'students_count' => $group->students_count,
+                'curator' => $group->curator ? $group->curator->fio : null,
+            ];
+        });
+
+        return response()->json($response);
     }
 
-    // Назначение студента в группу
-    public function addStudents(Request $request) {
-        $user = $request->user;
+    /**
+     * Проверка на существование названия группы.
+     */
+    public function checkName(Request $request)
+    {
+        $name = $request->query('name');
+        $exists = Group::where('title', $name)->exists();
 
-        // Проверка на обладание правами редактирования пользователей.
-        if (!AdminPrivilege::where(['userAdminId'=>$user['id'],'privilege'=>'UserManager'])->first()) {
-            return response()->json(['status'=>'error', 'statusMessage'=>'У вас не хвататет прав. Необходимы права редактора пользователей.'], 403);
-        }
-
-        $valid_data = $request->validate([
-            'userId' => 'required|exists:user_students,id',
-            'groupId' => 'reqired|exists:groups,id',
-        ]);
-
-        $student = UserStudent::where([
-            'id'=>$valid_data['userId']
-        ])->first();
-
-        $student->groupId = $valid_data['groupId'];
-        return resposne()->json(['status'=>'success', 'statusMessage'=>'Студент успешно добавлен в группу'], 200);
+        return $exists ? response()->json(['message' => 'Name not available'], 409)
+                       : response()->json(['message' => 'Name available'], 200);
     }
 
-    // Удаление студента из группы
-    public function removeStudent(Request $request) {
-        $user = $request->user;
-
-        // Проверка на обладание правами редактирования пользователей.
-        if (!AdminPrivilege::where(['userAdminId'=>$user['id'],'privilege'=>'UserManager'])->first()) {
-            return response()->json(['status'=>'error', 'statusMessage'=>'У вас не хвататет прав. Необходимы права редактора пользователей.'], 403);
-        }
-
-        $valid_data = $request->validate([
-            'userId' => 'required|exists:user_students,id',
-            'groupId' => 'reqired|exists:groups,id',
+    /**
+     * Создание группы.
+     */
+    public function create(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|unique:groups,title|max:255',
+            'departmentId' => 'required|exists:departments,id',
+            'userTeacherId' => 'required|exists:user_teachers,id',
+            'color' => 'required|string|max:7',
         ]);
 
-        $student = UserStudent::where([
-            'id'=>$valid_data['userId']
-        ])->first();
+        $group = Group::create($request->all());
 
-        if ($student->groupId == $valid_data['groupId']) {
-            $student->groupId = null;
-            return resposne()->json(['status'=>'success', 'statusMessage'=>'Студент успешно удален из группы'], 200);
-        }
-        return response()->json(['status'=>'error', 'statusMessage'=>'Студент находится в другой группе', 'data'=>$student], 204);
+        return response()->json(['success' => true, 'group' => $group], 201);
     }
 
-    // Список студентов на назначение
-    public function availableStudents(Request $request) {
-        $user = $request->user;
+    /**
+     * Обновление специальности группы.
+     */
+    public function updateSpecialization(Request $request, $groupId)
+    {
+        $request->validate([
+            'departmentId' => 'required|exists:departments,id',
+        ]);
 
-        // Проверка на обладание правами редактирования пользователей.
-        if (!AdminPrivilege::where(['userAdminId'=>$user['id'],'privilege'=>'UserManager'])->first()) {
-            return response()->json(['status'=>'error', 'statusMessage'=>'У вас не хвататет прав. Необходимы права редактора пользователей.'], 403);
-        }
+        $group = Group::findOrFail($groupId);
+        $group->departmentId = $request->input('departmentId');
+        $group->save();
 
-        $student = UserStudentModel::where([
-            'groupId'=>null
-        ])->get();
+        return response()->json(['success' => true]);
+    }
 
-        return resposne()->json(['status'=>'success', 'statusMessage'=>'Студенты', 'data' => $student], 200);
+    /**
+     * Обновление куратора группы.
+     */
+    public function updateTeacher(Request $request, $groupId)
+    {
+        $request->validate([
+            'userTeacherId' => 'required|exists:user_teachers,id',
+        ]);
+
+        $group = Group::findOrFail($groupId);
+        $group->userTeacherId = $request->input('userTeacherId');
+        $group->save();
+
+        return response()->json(['success' => true]);
+    }
+
+    /**
+     * Получение информации о группе.
+     */
+    public function getInfo($groupId)
+    {
+        $group = Group::with(['department', 'curator'])->findOrFail($groupId);
+
+        $info = [
+            'id' => $group->id,
+            'title' => $group->title,
+            'specialization' => $group->department,
+            'curator' => $group->curator,
+        ];
+
+        return response()->json($info);
     }
 }

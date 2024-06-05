@@ -3,19 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 
 class UserAdmin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $guarded = [];
+    protected $fillable = ['login', 'password'];
 
-    public function adminPrivileges()
+    protected $hidden = ['password', 'remember_token'];
+
+    public function privileges()
     {
-        return $this->hasMany(AdminPrivilege::class, 'userAdminId', 'id');
+        return $this->hasMany(AdminPrivilege::class, 'userAdminId');
     }
 }
+

@@ -2,11 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\AdminPanel\Auth\AdminAuthController as AdminAuthController;
-use App\Http\Controllers\AdminPanel\AdminController as AdminController;
-use App\Http\Middleware\AdminPanel\Auth\AdminController as AdminMiddleware;
+use App\Http\Controllers\AdminPanel\Auth\AdminAuthController;
+use App\Http\Controllers\AdminPanel\SubjectController;
+use App\Http\Controllers\AdminPanel\GroupController;
+use App\Http\Controllers\AdminPanel\SpecializationController;
+use App\Http\Controllers\AdminPanel\AuditoriaController;
+use App\Http\Controllers\AdminPanel\TeacherController;
+use App\Http\Controllers\AdminPanel\StudentController;
+use App\Http\Controllers\AdminPanel\AdminController;
+use App\Http\Controllers\AdminPanel\GroupSubjectController;
+use App\Http\Controllers\AdminPanel\ScheduleController;
+use App\Http\Controllers\AdminPanel\UserController;
+use App\Http\Controllers\AdminPanel\ReplacementController;
+use App\Http\Controllers\AdminPanel\GroupStudentController;
 
-Route::prefix('adminPanel')->group(function () {
+use App\Http\Middleware\AdminPanel\AdminAuthMiddleware;
+
+// Route::prefix('adminPanel')->group(function () {
 
     // TODO - Aвторизации админа. Выдаем токен.
     Route::post('signin', [AdminAuthController::class, 'signin']);
@@ -19,8 +31,9 @@ Route::prefix('adminPanel')->group(function () {
 
         // TODO - Получение списка предметов.
         Route::get('subjects/getList', [SubjectController::class, 'getList']);
+        // Необходио вернуть: id предмета, название.
 
-        // TODO - Получение всех групп (есть фильтрация по специальности) (есть возможность поиска по литере, специальности, куратору)
+        // TODO - Получение всех групп (есть фильтрация по специальности, оно в преоритете) (есть возможность поиска. Как ведется поиск. В поле search подается текст и мы его изем по трем полям одновременно по литере, специальности, куратору)
         Route::get('groupList', [GroupController::class, 'getList']); 
         // Необходио вернуть: id группы, литера группы, кол-во студентов, ФИО куратора  
 
@@ -29,8 +42,8 @@ Route::prefix('adminPanel')->group(function () {
         // Необходио вернуть: id специальности, название специальности.
 
         // TODO - ПОлучение всех аудиторий.
-        Route::get('audienceList', [AudienceController::class, 'getList']);
-
+        Route::get('auditoriaList', [AuditoriaController::class, 'getList']);
+        // Необходио вернуть: id аудитории, номер аудитории (number).
 
         Route::prefix('teachers')->group(function () {
 
@@ -45,9 +58,20 @@ Route::prefix('adminPanel')->group(function () {
             
                 // TODO - Получение информации о преподавателе
                 Route::get('info', [TeacherController::class, 'info']);
+                // Полная информация о преподавателе. Своя (кроме пароля) + аудитория. Добавить обработку параметров (добавление информации если параметр указали): какие группы курирует(curator), в каких преподает(teacher), какие ведет предметы(subjects).
 
-                // TODO - Редактирование преподавателя 
-                Route::put('change', [TeacherController::class, 'change']);
+                // TODO - Редактирование преподавателя. Редактирование ФИО.
+                Route::put('changeFIO', [TeacherController::class, 'changeFIO']);
+
+                Route::prefix('subjects')->group(function () {
+                
+                    // TODO - Редактирование преподавателя. Удаление предмета.
+                    Route::put('delete', [TeacherController::class, 'deleteSubject']);
+                    
+                    // TODO - Редактирование преподавателя. Добавление предмета.
+                    Route::put('add', [TeacherController::class, 'addSubject']);
+
+                });
 
             });
 
@@ -62,9 +86,10 @@ Route::prefix('adminPanel')->group(function () {
 
                 // TODO - Получение информации о студенте
                 Route::get('info', [StudentController::class, 'info']);
+                // Полная информация о стденте. Своя (кроме пароля) + группа + куратор (id, ФИО) + специальность (id, название). Добавить обработку параметров (добавление информации если параметр указали): какие предметы ведутся в его группе.
 
-                // TODO - Редактирование студента 
-                Route::put('change', [StudentController::class, 'change']);
+                // TODO - Редактирование студента. Смена ФИО. 
+                Route::put('changeFIO', [StudentController::class, 'changeFIO']);
 
             });
 
@@ -79,9 +104,7 @@ Route::prefix('adminPanel')->group(function () {
 
                 // TODO - Получение информации о администраторе
                 Route::get('info', [AdminController::class, 'info']);
-
-                // TODO - Редактирование администратора
-                Route::post('change', [AdminController::class, 'change']);
+                // Полная информация о стденте. Своя (кроме пароля)
 
             });
 
@@ -92,17 +115,18 @@ Route::prefix('adminPanel')->group(function () {
 
             // TODO - Проверка на сущестование литеры группы.
             Route::get('checkName', [GroupController::class, 'checkName']);
+            // Возвращает 200 код если название доступно и 409 если не дсступен.
 
             // TODO - Создание группы (Указывается литера (например П-21-57к), Специальность, преподавателея (теперь куратора группы), Цвет группы(rgb))
             Route::post('create', [GroupController::class, 'create']);
 
-            // TODO - Обновление специальности группы
-            Route::put('updateSpecialization', [GroupController::class, 'updateSpecialization']);
-
-            // TODO - Обновление куратора группы
-            Route::put('updateTeacher', [GroupController::class, 'updateTeacher']);
-
             Route::prefix('{groupId}')->group(function () {
+
+                // TODO - Обновление специальности группы на другое
+                Route::put('updateSpecialization', [GroupController::class, 'updateSpecialization']);
+
+                // TODO - Обновление куратора группы на другого
+                Route::put('updateTeacher', [GroupController::class, 'updateTeacher']);
 
                 // TODO - Получение информации о группе (Литера, Специальность, Куратор)
                 Route::get('getInfo', [GroupController::class, 'getInfo']);  
@@ -125,7 +149,7 @@ Route::prefix('adminPanel')->group(function () {
                 Route::prefix('subjects')->group(function () {
 
                     // TODO - Получить все предметы этой группы.
-                    Route::get('list', [GroupController::class, 'list']);
+                    Route::get('list', [GroupSubjectController::class, 'list']);
 
                     // TODO - Добавление предмета в группу (подаем преподавателя и предмет).
                     Route::post('add', [GroupSubjectController::class, 'add']); 
@@ -204,7 +228,7 @@ Route::prefix('adminPanel')->group(function () {
 
     });
     
-});
+// });
 
 
 
