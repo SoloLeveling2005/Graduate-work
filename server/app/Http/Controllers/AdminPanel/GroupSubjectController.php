@@ -30,7 +30,7 @@ class GroupSubjectController extends Controller
                     'fio' => $groupSubject->teacherSubject->teacher->fio,
                 ],
             ];
-        });
+        }); 
 
         return response()->json(['subjects'=>$response, 'status'=>200], 200);
     }

@@ -44,6 +44,7 @@ class GroupController extends Controller
                 'id' => $group->id,
                 'title' => $group->title,
                 'students_count' => $group->students_count,
+                'color' => $group->color,
                 'curator' => $group->curator ? $group->curator->fio : null,
             ];
         });
