@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Teacher\Auth\TeacherAuthController as TeacherAuthController;
+use App\Http\Controllers\Teacher\GroupController as GroupController;
+
+use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +24,11 @@ Route::post('signin', [TeacherAuthController::class, 'signin']);
 // TODO - Выход преподавателя. Удаляем токен.
 Route::post('signout', [TeacherAuthController::class, 'signout']);
 
+// TODO - Список групп.
+Route::prefix('group')->middleware(TeacherAuthMiddleware::class)->group(function() {
+    Route::get('list', [GroupController::class, 'list']);
+    Route::get('tutorList', [GroupController::class, 'tutorList']);
+});
 
 
 

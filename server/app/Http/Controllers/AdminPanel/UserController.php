@@ -101,7 +101,7 @@ class UserController extends Controller
      */
     public function removeStudent($userId)
     {
-        $user = UserTeacher::find($userId);
+        $user = UserStudent::find($userId);
 
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
@@ -117,7 +117,7 @@ class UserController extends Controller
      */
     public function removeTeacher($userId)
     {
-        $user = UserStudent::find($userId);
+        $user = UserTeacher::find($userId);
 
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);

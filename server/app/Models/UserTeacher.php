@@ -20,14 +20,19 @@ class UserTeacher extends Authenticatable
         return $this->belongsTo(Auditorium::class, 'auditoriaId');
     }
 
-    public function subjects()
-    {
-        return $this->hasMany(UserTeacherSubject::class, 'userTeacherId');
-    }
+    // public function subjects()
+    // {
+    //     return $this->hasMany(UserTeacherSubject::class, 'userTeacherId');
+    // }
 
     public function groups()
     {
         return $this->hasMany(Group::class, 'userTeacherId');
+    }
+
+    public function teacherSubject()
+    {
+        return $this->hasMany(UserTeacherSubject::class, 'userTeacherId');
     }
 
     public function scheduleClasses()

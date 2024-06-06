@@ -122,38 +122,48 @@ class SLAuthorizationGuard
         $token = $this->getToken($request);
 
         if (!$token) {
-            return ['error' => 'Token not provided', 'status'=>401];
+            return ['error' => 'Token not provided', 'status' => 401];
         }
 
         // Получение конфигурации охранника
         $guardConfig = $this->SLGuardArray['guards'][$this->guard];
         $tokenModel = new $guardConfig['tokenModel'];
-        $tokenRecord = $tokenModel->where($this->SLGuardArray['default_token_field'], $token)->first(); 
+        $tokenRecord = $tokenModel->where($this->SLGuardArray['default_token_field'], $token)->first();
 
         // Проверка токена и его срока действия
         if ($tokenRecord && (!$tokenRecord->expires_at || $tokenRecord->expires_at->isFuture())) {
             $userId = $tokenRecord->{$this->SLGuardArray['default_parentId_field']};
             $userModel = new $guardConfig['model'];
-            $user = ($userModel::with('privileges')->find($userId))->toArray();
 
-            $instance = $userModel;
-            $reflection = new \ReflectionClass($instance);
-            $property = $reflection->getProperty('hidden');
-            $property->setAccessible(true);
-            $hidden_fields = $property->getValue($instance);
+            // Проверка наличия отношения 'privileges'
+            if (method_exists($userModel, 'privileges')) {
+                $user = $userModel::with('privileges')->find($userId);
+            } else {
+                $user = $userModel::find($userId);
+            }
 
             if ($user) {
-                $privileges = array_map(function($item) {
-                    return $item['privilege']; // Умножаем каждый элемент на 2
-                }, $user['privileges']);
-                $user['privileges'] = $privileges;
+                $userArray = $user->toArray();
+                $instance = $userModel;
+                $reflection = new \ReflectionClass($instance);
+                $property = $reflection->getProperty('hidden');
+                $property->setAccessible(true);
+                $hidden_fields = $property->getValue($instance);
 
-                $request->user = $user;
+                // Обработка привилегий, если они существуют
+                if (isset($userArray['privileges'])) {
+                    $privileges = array_map(function($item) {
+                        return $item['privilege'];
+                    }, $userArray['privileges']);
+                    $userArray['privileges'] = $privileges;
+                }
+
+                $request->user = $userArray;
                 return $request;
             }
         }
 
-        return ['error' => 'Invalid or expired token', 'status'=>401];
+        return ['error' => 'Invalid or expired token', 'status' => 401];
     }
 
     /**
