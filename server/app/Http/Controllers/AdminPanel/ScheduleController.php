@@ -104,7 +104,7 @@ class ScheduleController extends Controller
             'number' => $request->input('number'),
             'groupId' => $groupId,
             'subgroup' => null
-        ]));
+        ])->get());
 
         if ($request->input('subgroup')) {
             $conditions['subgroup'] = $request->input('subgroup');
