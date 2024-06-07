@@ -30,7 +30,7 @@ class ScheduleController extends Controller
             'end_date' => 'nullable|date_format:Y-m-d'
         ]);
 
-        dd($request);
+        dd($request->user);
 
         $teacher = $request->user();
 
