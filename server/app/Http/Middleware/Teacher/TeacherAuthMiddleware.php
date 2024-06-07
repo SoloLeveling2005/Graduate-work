@@ -19,9 +19,11 @@ class TeacherAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $request = SLAuthorization::guard('teacher')->auth($request);
 
         dd($request);
+
+        $request = SLAuthorization::guard('teacher')->auth($request);
+
 
         if ($request instanceof Request) {
             return $next($request);
