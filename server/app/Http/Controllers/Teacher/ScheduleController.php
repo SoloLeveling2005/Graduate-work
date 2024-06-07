@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-use app\Models\UserTeacher;
 use app\Models\GroupScheduleClass;
+use app\Models\UserTeacher;
 
 class ScheduleController extends Controller
 {

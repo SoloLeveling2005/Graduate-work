@@ -30,4 +30,6 @@ class GroupScheduleClass extends Model
     {
         return $this->hasMany(GroupScheduleClassReplacement::class, 'groupScheduleClassId');
     }
+
+    
 }
