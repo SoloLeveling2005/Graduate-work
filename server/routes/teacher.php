@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Teacher\Auth\TeacherAuthController as TeacherAuthController;
 use App\Http\Controllers\Teacher\GroupController as GroupController;
+use App\Http\Controllers\Teacher\ScheduleController as ScheduleController;
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
@@ -26,9 +27,11 @@ Route::post('signout', [TeacherAuthController::class, 'signout']);
 
 // TODO - Список групп.
 Route::prefix('group')->middleware(TeacherAuthMiddleware::class)->group(function() {
-    Route::get('scheduleList', [GroupController::class, 'scheduleList']);
+    Route::get('list', [GroupController::class, 'list']);
     Route::get('tutorList', [GroupController::class, 'tutorList']);
 });
+
+Route::get('scheduleList', [ScheduleController::class, 'scheduleList']);
 
 
 
