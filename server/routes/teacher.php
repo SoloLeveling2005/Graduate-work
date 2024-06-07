@@ -26,14 +26,18 @@ Route::post('signin', [TeacherAuthController::class, 'signin']);
 Route::post('signout', [TeacherAuthController::class, 'signout']);
 
 // TODO - Список групп.
-Route::prefix('group')->middleware(TeacherAuthMiddleware::class)->group(function() {
-    Route::get('list', [GroupController::class, 'list']);
-    Route::get('tutorList', [GroupController::class, 'tutorList']);
+Route::middleware(TeacherAuthMiddleware::class)->group(function() {
+    Route::prefix('group')->group(function() {
+        Route::get('list', [GroupController::class, 'list']);
+        Route::get('tutorList', [GroupController::class, 'tutorList']);
+    });
+
+    Route::prefix('schedule')->group(function() {
+        Route::get('list', [ScheduleController::class, 'list']);
+    }); 
 });
 
-Route::prefix('schedule')->group(function() {
-    Route::get('list', [ScheduleController::class, 'list']);
-}); 
+
 
 
 
