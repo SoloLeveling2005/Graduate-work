@@ -114,7 +114,7 @@ class ScheduleController extends Controller
                 'date' => $request->input('date'),
                 'number' => $request->input('number'),
                 'groupId' => $groupId,
-            ])->whereIn('subgroup', ['A', 'B'])->delete();
+            ])->delete();
 
             $conditions['subgroup'] = null;
         }

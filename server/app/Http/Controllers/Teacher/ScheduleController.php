@@ -59,4 +59,8 @@ class ScheduleController extends Controller
 
         return response()->json($schedule);
     }
+
+    public function addRequest(Request $request) {
+
+    }
 }
