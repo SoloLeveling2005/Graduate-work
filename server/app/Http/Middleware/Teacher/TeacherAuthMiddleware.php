@@ -21,6 +21,8 @@ class TeacherAuthMiddleware
     {
         $request = SLAuthorization::guard('teacher')->auth($request);
 
+        dd($request);
+
         if ($request instanceof Request) {
             return $next($request);
         }
