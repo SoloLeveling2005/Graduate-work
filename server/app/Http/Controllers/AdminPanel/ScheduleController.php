@@ -102,8 +102,7 @@ class ScheduleController extends Controller
         dd(GroupScheduleClass::where([
             'date' => $request->input('date'),
             'number' => $request->input('number'),
-            'groupId' => $groupId,
-            'subgroup' => null
+            'groupId' => $groupId
         ])->get());
 
         if ($request->input('subgroup')) {
