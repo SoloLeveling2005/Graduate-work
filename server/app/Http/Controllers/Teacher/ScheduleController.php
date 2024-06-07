@@ -22,7 +22,7 @@ class ScheduleController extends Controller
     }
 
 
-    public function scheduleList(Request $request)
+    public function list(Request $request)
     {
         $request->validate([
             'start_date' => 'nullable|date_format:Y-m-d',

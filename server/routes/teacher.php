@@ -31,7 +31,10 @@ Route::prefix('group')->middleware(TeacherAuthMiddleware::class)->group(function
     Route::get('tutorList', [GroupController::class, 'tutorList']);
 });
 
-Route::get('scheduleList', [ScheduleController::class, 'scheduleList']);
+Route::prefix('schedule')->group(function() {
+    Route::get('list', [ScheduleController::class, 'list']);
+}); 
+
 
 
 
