@@ -31,6 +31,8 @@ class ScheduleController extends Controller
         ]);
         $teacher = $request->user();
 
+        dd($teacher);
+
         // Получение входных данных или установка значений по умолчанию
         $startDate = $request->input('start_date') ?: Carbon::now()->startOfWeek()->format('Y-m-d');
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
