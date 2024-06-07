@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use app\Models\UserTeacher;
-use app\Models\GroupScheduleClass;
+// use app\Models\GroupScheduleClass;
 
 class ScheduleController extends Controller
 {
@@ -37,8 +37,6 @@ class ScheduleController extends Controller
         $startDate = $request->input('start_date') ?: Carbon::now()->startOfWeek()->format('Y-m-d');
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
         $teacherId = $teacher['id'];
-
-
 
         // Запрос для получения расписания
         $schedule = GroupScheduleClass::whereHas('groupSubject.teacherSubject.userTeacher', function ($query) use ($teacherId) {
