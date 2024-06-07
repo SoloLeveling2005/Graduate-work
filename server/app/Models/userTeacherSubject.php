@@ -25,6 +25,4 @@ class UserTeacherSubject extends Model
     {
         return $this->hasMany(GroupSubject::class, 'teacherSubjectId');
     }
-
-
 }
