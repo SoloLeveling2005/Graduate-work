@@ -20,8 +20,6 @@ class TeacherAuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
 
-        dd($request);
-
         $request = SLAuthorization::guard('teacher')->auth($request);
 
 
