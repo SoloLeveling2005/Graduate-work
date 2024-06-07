@@ -4,13 +4,12 @@ namespace App\Http\Controllers\Teacher;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\GroupScheduleClass;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use App\Models\GroupScheduleClass;
 
 class ScheduleController extends Controller
 {
-
     public function list(Request $request)
     {
         $request->validate([
@@ -39,7 +38,7 @@ class ScheduleController extends Controller
 
         foreach ($period as $date) {
             $dailySchedule = $scheduleClasses->filter(function ($class) use ($date) {
-                return $class->date->format('Y-m-d') == $date->format('Y-m-d');
+                return Carbon::parse($class->date)->format('Y-m-d') == $date->format('Y-m-d');
             });
 
             $formattedDailySchedule = $dailySchedule->map(function ($class) {
@@ -60,6 +59,4 @@ class ScheduleController extends Controller
 
         return response()->json($schedule);
     }
-
-
 }
