@@ -18,12 +18,12 @@ class ScheduleController extends Controller
             'end_date' => 'nullable|date_format:Y-m-d'
         ]);
 
-        $teacher = $request->user();
+        $teacher = $request->user;
 
         // Получение входных данных или установка значений по умолчанию
         $startDate = $request->input('start_date') ?: Carbon::now()->startOfWeek()->format('Y-m-d');
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
-        $teacherId = $teacher->id;
+        $teacherId = $teacher['id'];
 
         // Получение расписания преподавателя за указанный период
         $scheduleClasses = GroupScheduleClass::whereHas('subject.teacherSubject', function ($query) use ($teacherId) {
