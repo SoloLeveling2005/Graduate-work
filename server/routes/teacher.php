@@ -26,7 +26,7 @@ Route::post('signout', [TeacherAuthController::class, 'signout']);
 
 // TODO - Список групп.
 Route::prefix('group')->middleware(TeacherAuthMiddleware::class)->group(function() {
-    Route::get('list', [GroupController::class, 'list']);
+    Route::get('scheduleList', [GroupController::class, 'scheduleList']);
     Route::get('tutorList', [GroupController::class, 'tutorList']);
 });
 
