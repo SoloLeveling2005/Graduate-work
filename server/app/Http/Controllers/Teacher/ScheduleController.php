@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 use app\Models\UserTeacher;
-use app\Models\GroupScheduleClass;
+
 
 class ScheduleController extends Controller
 {
@@ -39,7 +39,7 @@ class ScheduleController extends Controller
         $teacherId = $teacher['id'];
 
 
-        
+
         // Запрос для получения расписания
         $schedule = GroupScheduleClass::whereHas('groupSubject.teacherSubject.userTeacher', function ($query) use ($teacherId) {
             $query->where('id', $teacherId);
