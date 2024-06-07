@@ -30,7 +30,7 @@ class ScheduleController extends Controller
             'end_date' => 'nullable|date_format:Y-m-d'
         ]);
 
-        $teacher = $request->user();
+        $teacher = $request->user;
 
         // Получение входных данных или установка значений по умолчанию
         $startDate = $request->input('start_date') ?: Carbon::now()->startOfWeek()->format('Y-m-d');
