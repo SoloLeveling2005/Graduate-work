@@ -43,7 +43,7 @@ class ScheduleController extends Controller
 
             $formattedDailySchedule = $dailySchedule->map(function ($class) {
                 return [
-                    'subject' => $class->subject->teacherSubject->subject->title,
+                    'subject' => $class->subject->teacherSubject->subject,
                     'group' => $class->group->title,
                     'subgroup' => $class->subgroup,
                     'number' => $class->number,
