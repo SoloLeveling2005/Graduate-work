@@ -38,11 +38,11 @@ class ScheduleController extends Controller
         $teacherId = $teacher['id'];
 
         // Запрос для получения расписания
-        $schedule = GroupScheduleClass::whereHas('subject.teacherSubject.userTeacher', function ($query) use ($teacherId) {
+        $schedule = GroupScheduleClass::whereHas('subject.teacherSubject.teacher', function ($query) use ($teacherId) {
             $query->where('id', $teacherId);
         })
         ->whereBetween('date', [$startDate, $endDate])
-        ->with(['group', 'groupSubject.teacherSubject.userTeacher', 'groupSubject.subject'])
+        ->with(['group', 'groupSubject.teacherSubject.teacher', 'groupSubject.subject'])
         ->get();
 
         return response()->json($schedule);
