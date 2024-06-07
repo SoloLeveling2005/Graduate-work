@@ -35,7 +35,7 @@ class ScheduleController extends Controller
         // Получение входных данных или установка значений по умолчанию
         $startDate = $request->input('start_date') ?: Carbon::now()->startOfWeek()->format('Y-m-d');
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
-        $teacherId = $teacher->id;
+        $teacherId = $teacher['id'];
 
         // Запрос для получения расписания
         $schedule = GroupScheduleClass::whereHas('groupSubject.teacherSubject.userTeacher', function ($query) use ($teacherId) {
