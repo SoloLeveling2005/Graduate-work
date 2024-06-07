@@ -38,6 +38,8 @@ class ScheduleController extends Controller
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
         $teacherId = $teacher['id'];
 
+
+        
         // Запрос для получения расписания
         $schedule = GroupScheduleClass::whereHas('groupSubject.teacherSubject.userTeacher', function ($query) use ($teacherId) {
             $query->where('id', $teacherId);
