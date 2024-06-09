@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GroupScheduleClass;
 use App\Models\GroupScheduleClassReplacementRequest;
+use App\Models\GroupModal;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 
