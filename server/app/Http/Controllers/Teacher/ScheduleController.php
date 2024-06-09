@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GroupScheduleClass;
-use App\Models\GroupScheduleClassReplacementRequest;
+use App\Models\GroupScheduleClassReplacementRq;
 use App\Models\Group as GroupModal;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -82,11 +82,11 @@ class ScheduleController extends Controller
             'groupId' => $groupId,
         ];
 
-        if (GroupScheduleClassReplacementRequest::where(['number' => $request->input('number'), 'groupId' => $groupId])->exists()) {
+        if (GroupScheduleClassReplacementRq::where(['number' => $request->input('number'), 'groupId' => $groupId])->exists()) {
             return response()->json(['error' => '409 Conflict. Request for this day already exists.', 'status'=>409], 409);
         }
 
-        GroupScheduleClassReplacementRequest::create([
+        GroupScheduleClassReplacementRq::create([
             'groupId' => $groupId,
             'date' => $request->input('date'),
             'subjectId' => $request->input('subjectId'),
