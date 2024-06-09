@@ -78,7 +78,7 @@ class GroupController extends Controller
 
         $group = Group::create($request->all());
 
-        return response()->json(['status' => 200, 'group' => $group], 201);
+        return response()->json(['status' => 201, 'group' => $group], 201);
     }
 
     /**

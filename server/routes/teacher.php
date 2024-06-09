@@ -30,11 +30,21 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
     Route::prefix('group')->group(function() {
         Route::get('list', [GroupController::class, 'list']);
         Route::get('tutorList', [GroupController::class, 'tutorList']);
+
+        Route::prefix('{groupId}')->group(function () {
+
+            Route::prefix('schedule')->group(function() {
+                Route::post('addRequest', [ScheduleController::class ,'addRequest']);
+            }); 
+            
+        });
     });
 
     Route::prefix('schedule')->group(function() {
         Route::get('list', [ScheduleController::class, 'list']);
     }); 
+
+    
 });
 
 
