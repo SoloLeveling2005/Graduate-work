@@ -11,7 +11,14 @@ class GroupScheduleClassReplacementRq extends Model
 
     protected $table = 'group_schedule_class_replacement_rq';
 
-    protected $fillable = ['userTeacherId', 'groupScheduleClassId', 'subgroup', 'reason'];
+    protected $fillable = [
+        'groupId',
+        'date',
+        'subjectId',
+        'subgroup',
+        'number',
+        'reason'
+    ];
 
     public function teacher()
     {

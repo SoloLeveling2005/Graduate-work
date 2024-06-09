@@ -67,7 +67,8 @@ class ScheduleController extends Controller
             'date' => 'required|date_format:Y-m-d',
             'subjectId' => 'required|exists:group_subjects,id',
             'subgroup' => 'nullable|string|in:A,B',
-            'number' => 'required|integer'
+            'number' => 'required|integer',
+            'reason' => 'required|string|min:7'
         ]);
 
         $group = GroupModal::find($groupId);
