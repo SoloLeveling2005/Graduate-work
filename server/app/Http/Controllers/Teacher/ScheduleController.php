@@ -92,7 +92,8 @@ class ScheduleController extends Controller
             'date' => $request->input('date'),
             'subjectId' => $request->input('subjectId'),
             'subgroup' => $request->input('subgroup', null) || null,
-            'number' => $request->input('number')
+            'number' => $request->input('number'),
+            'reason' => $request->input('reason')
         ]);
 
         return response()->json(['status' => 201], 201);
