@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Group as GroupModal;
+use App\Models\GroupSubject as GroupSubject;
 
 class TeacherController extends Controller
 {
