@@ -227,6 +227,9 @@ use App\Http\Middleware\AdminPanel\ScheduleCoordinatorAdminMiddleware;
                 // TODO - Получение запросов на замену.
                 Route::get('list', [ReplacementController::class, 'requestsList']);
 
+                // TODO - Получение запросов на замену.
+                Route::get('requestsListDateRange', [ReplacementController::class, 'requestsListDateRange']);
+
                 // TODO - Получение запросов на замену (текущий месяц по умолчанию или указанный в параметре).
                 Route::get('monthList', [ReplacementController::class, 'requestsListMonth']);
 
