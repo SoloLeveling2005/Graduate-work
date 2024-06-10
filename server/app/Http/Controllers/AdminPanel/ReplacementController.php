@@ -54,7 +54,7 @@ class ReplacementController extends Controller
         }
 
         // Получение запросов на замену за указанный период
-        $requests = GroupScheduleClassReplacementRq::with(['subject', 'group'])
+        $requests = GroupScheduleClassReplacementRq::with(['subject', 'group', 'subject.teacherSubject.teacher'])
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get();
 
