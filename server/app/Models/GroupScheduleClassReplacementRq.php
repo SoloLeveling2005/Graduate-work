@@ -20,13 +20,13 @@ class GroupScheduleClassReplacementRq extends Model
         'reason'
     ];
 
-    public function teacher()
+    public function subject()
     {
-        return $this->belongsTo(UserTeacher::class, 'userTeacherId');
+        return $this->belongsTo(GroupSubject::class, 'subjectId');
     }
 
-    public function scheduleClass()
+    public function group()
     {
-        return $this->belongsTo(GroupScheduleClass::class, 'groupScheduleClassId');
+        return $this->belongsTo(Group::class, 'groupId');
     }
 }
