@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Teacher\Auth\TeacherAuthController as TeacherAuthController;
 use App\Http\Controllers\Teacher\GroupController as GroupController;
 use App\Http\Controllers\Teacher\ScheduleController as ScheduleController;
+use App\Http\Controllers\Teacher\TeacherController as TeacherController;
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
@@ -33,7 +34,12 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
         Route::prefix('{groupId}')->group(function () {
 
+            // TODO Получение всех предметов преподавателя, которые можно указать в запросе на замены
+            Route::get('teacherSubjectList', [TeacherController::class ,'teacherSubjectList']);
+
+
             Route::prefix('schedule')->group(function() {
+                // TODO - Создание замены на определнный день и пару
                 Route::post('addRequest', [ScheduleController::class ,'addRequest']);
             }); 
             
@@ -42,9 +48,7 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
     Route::prefix('schedule')->group(function() {
         Route::get('list', [ScheduleController::class, 'list']);
-    }); 
-
-    
+    });     
 });
 
 
