@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Teacher;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+use App\Models\Group as GroupModal;
+
 class TeacherController extends Controller
 {
     public function teacherSubjectList(Request $request, $groupId) {
