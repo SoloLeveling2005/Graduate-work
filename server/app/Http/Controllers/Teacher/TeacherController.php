@@ -19,11 +19,11 @@ class TeacherController extends Controller
             return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
         }
         
-        $groupSubjects = DB::table('group_subjects')
-            ->join('user_teacher_subjects', 'group_subjects.teacherSubjectId', '=', 'user_teacher_subjects.id')
-            ->where('user_teacher_subjects.userTeacherId', $teacherId)
-            ->where('group_subjects.groupId', $groupId)
-            ->select('group_subjects.*')
+        $groupSubjects = GroupSubject::with(['teacherSubject', 'teacherSubject.teacher', 'group'])
+            ->whereHas('teacherSubject', function ($query) use ($teacherId) {
+                $query->where('userTeacherId', $teacherId);
+            })
+            ->where('groupId', $groupId)
             ->get();
 
         return response()->json(['status' => 200, 'data' => $groupSubjects], 200);
