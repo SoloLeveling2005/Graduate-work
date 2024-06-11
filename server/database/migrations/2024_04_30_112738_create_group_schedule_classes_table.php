@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('subjectId')->nullable()->constrained('group_subjects')->onUpdate('cascade')->onDelete('set null')->default(null);
             $table->string('subgroup', 1)->nullable(); // A группа  /  B группа  / null - общая пара.
             $table->integer('number');
-            $table->int('dayWeek');
+            $table->integer('dayWeek');
             $table->timestamps();
         });
     }
