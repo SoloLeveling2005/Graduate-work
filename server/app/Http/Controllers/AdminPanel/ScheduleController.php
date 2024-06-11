@@ -35,6 +35,8 @@ class ScheduleController extends Controller
             $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
                 ->get();
         }
+
+        dd($scheduleClasses);
         
 
         // Проверяем на наличие замен для каждого занятия
