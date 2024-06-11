@@ -55,7 +55,7 @@ class ScheduleController extends Controller
             }])->where('dayWeek', $dayWeek)->get();
 
 
-            $dayScheduleList['scheduleClasses'] = $scheduleClasses;
+            $daySchedule['scheduleClasses'] = $scheduleClasses;
         }
 
         // // Получение расписания преподавателя за указанный период
