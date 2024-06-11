@@ -14,7 +14,7 @@ class SubjectController extends Controller
      */
     public function getList()
     {
-        $subjects = Subject::all(['id', 'title']);
+        $subjects = Subject::with(['teacherSubjects'])->get(['id', 'title']);
         return response()->json($subjects);
     }
 }

@@ -26,7 +26,6 @@ class StudentAuthController extends Controller
             return response()->json(['error' => "Passwords don't match"], 400);
         }
 
-
         if (!$student || !Hash::check($valid_data['password'], $student->password)) {
             return response()->json(['error' => 'Invalid login or password'], 401);
         }

@@ -124,7 +124,7 @@ class GroupController extends Controller
     /**
      * Получение информации о группе. (Проверено)
      */
-    public function getInfo($groupId)
+    public function getInfo(Request $request, $groupId)
     {
         $group = Group::with(['department', 'curator'])->findOrFail($groupId);
 
@@ -140,5 +140,9 @@ class GroupController extends Controller
         ];
 
         return response()->json($info, 200);
+    }
+
+    public function getScheduleByDate(Request $request) {
+
     }
 }
