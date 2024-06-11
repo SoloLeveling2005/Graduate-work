@@ -26,7 +26,7 @@ class TeacherAuthController extends Controller
             return response()->json(['error' => "Passwords don't match"], 400);
         }
 
-        dd(Hash::check("popov12", $teacher->password));
+        dd(Hash::check($teacher->password, "popov12"));
 
         if (!$teacher || !Hash::check($valid_data['password'], $teacher->password)) {
             return response()->json(['error' => 'Invalid login or password'], 401);
