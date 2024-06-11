@@ -91,10 +91,12 @@ class ReplacementController extends Controller
 
         // Создание подтвержденной замены
         $replacement = GroupScheduleClassReplacement::create([
-            'userTeacherId' => $requestReplacement->userTeacherId,
-            'groupScheduleClassId' => $requestReplacement->groupScheduleClassId,
+            'groupId' => $requestReplacement->groupId,
+            'date' => $requestReplacement->date,
+            'subjectId' => $requestReplacement->subjectId,
             'subgroup' => $requestReplacement->subgroup,
-            'reason' => $requestReplacement->reason,
+            'number' => $requestReplacement->number,
+            'reason' => $requestReplacement->reason
         ]);
 
         // Удаление всех запросов на замену для данной даты и номера пары
