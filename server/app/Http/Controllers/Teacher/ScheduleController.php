@@ -12,6 +12,24 @@ use Carbon\CarbonPeriod;
 
 class ScheduleController extends Controller
 {
+
+    public function getDaysOfWeek($startDate, $endDate) {
+        $start = Carbon::createFromFormat('Y-m-d', $startDate);
+        $end = Carbon::createFromFormat('Y-m-d', $endDate);
+        
+        $days = [];
+
+        while ($start->lte($end)) {
+            $days[] = [
+                'day' => $start->format('Y-m-d'),
+                'dayWeek' => $start->dayOfWeek+1
+            ];
+            $start->addDay();
+        }
+
+        return $days;
+    }
+
     public function list(Request $request)
     {
         $request->validate([

@@ -54,6 +54,8 @@ class SLAuthorizationGuard
         $ip = request()->ip();
         $key = 'login-attempts:' . $ip;
 
+        dd(Hash::check('popov12', Hash::make('popov12')));
+
         // Ограничение количества попыток входа для предотвращения атак типа "brute force"
         if (RateLimiter::tooManyAttempts($key, 5)) {
             return ['error' => 'Too many attempts. Please try again later.', 'status' => 429];
