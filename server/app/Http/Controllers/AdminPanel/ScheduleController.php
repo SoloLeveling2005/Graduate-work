@@ -27,7 +27,7 @@ class ScheduleController extends Controller
         }
 
         // Получаем расписание для указанного дня недели
-        if ($validated['dayWeek']) {
+        if (isset($validated['dayWeek'])) {
             $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
                 ->where('dayWeek', $validated['dayWeek'])
                 ->get();
