@@ -12,7 +12,7 @@ use Carbon\Carbon;
 class ScheduleController extends Controller
 {
     /**
-     * Получение расписания группы. (Проверено)
+     * Получение расписания группы без замен. (Проверено)
      */
     public function list(Request $request, $groupId)
     {
@@ -42,28 +42,10 @@ class ScheduleController extends Controller
             }
         }
 
-        dd($dates);
-        
-
-        // Проверяем на наличие замен для каждого занятия
-        $scheduleWithReplacements = $scheduleClasses->map(function ($class) {
-            $replacement = GroupScheduleClassReplacement::where('groupId', $class->groupId)
-                ->where('date', today()) // Замену можно учитывать по текущей дате
-                ->where('number', $class->number)
-                ->first();
-
-            if ($replacement) {
-                $class->subjectId = $replacement->subjectId;
-                $class->subgroup = $replacement->subgroup;
-                $class->reason = $replacement->reason;
-            }
-
-            return $class;
-        });
 
         return response()->json([
             'message' => 'Schedule with replacements retrieved successfully',
-            'data' => $scheduleWithReplacements
+            'data' => $dates
         ], 200);
     }
 
