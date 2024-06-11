@@ -128,11 +128,17 @@ class ScheduleController extends Controller
             return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
         }
 
-        GroupScheduleClass::where([
+        $groupSchedule = GroupScheduleClass::where([
             'dayWeek' => $request->input('dayWeek'),
             'number' => $request->input('number'),
             'groupId' => $groupId,
-        ])->delete();
+        ])->first();
+
+        if (!$groupSchedule) {
+            return response()->json(['error' => '404 Group shedule by this day and lesson number Not Found', 'status'=>404], 404);
+        }
+
+        $groupSchedule->delete();
 
         return response()->json(['status'=>200], 200);
     }
