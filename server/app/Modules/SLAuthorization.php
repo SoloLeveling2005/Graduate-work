@@ -130,8 +130,6 @@ class SLAuthorizationGuard
         $tokenModel = new $guardConfig['tokenModel'];
         $tokenRecord = $tokenModel->where($this->SLGuardArray['default_token_field'], $token)->first();
 
-        dd($token);
-
         // Проверка токена и его срока действия
         if ($tokenRecord && (!$tokenRecord->expires_at || $tokenRecord->expires_at->isFuture())) {
             $userId = $tokenRecord->{$this->SLGuardArray['default_parentId_field']};
