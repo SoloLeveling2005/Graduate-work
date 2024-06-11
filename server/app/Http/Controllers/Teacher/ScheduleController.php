@@ -44,40 +44,40 @@ class ScheduleController extends Controller
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
         $teacherId = $teacher['id'];
 
-        // Получение расписания преподавателя за указанный период
-        $scheduleClasses = GroupScheduleClass::whereHas('subject.teacherSubject', function ($query) use ($teacherId) {
-            $query->where('userTeacherId', $teacherId);
-        })
-        ->whereBetween('date', [$startDate, $endDate])
-        ->with(['group', 'subject.teacherSubject.subject'])
-        ->get();
+        // // Получение расписания преподавателя за указанный период
+        // $scheduleClasses = GroupScheduleClass::whereHas('subject.teacherSubject', function ($query) use ($teacherId) {
+        //     $query->where('userTeacherId', $teacherId);
+        // })
+        // ->whereBetween('date', [$startDate, $endDate])
+        // ->with(['group', 'subject.teacherSubject.subject'])
+        // ->get();
 
-        // Форматирование расписания в нужный формат
-        $schedule = [];
-        $period = CarbonPeriod::create($startDate, $endDate);
+        // // Форматирование расписания в нужный формат
+        // $schedule = [];
+        // $period = CarbonPeriod::create($startDate, $endDate);
 
-        foreach ($period as $date) {
-            $dailySchedule = $scheduleClasses->filter(function ($class) use ($date) {
-                return Carbon::parse($class->date)->format('Y-m-d') == $date->format('Y-m-d');
-            });
+        // foreach ($period as $date) {
+        //     $dailySchedule = $scheduleClasses->filter(function ($class) use ($date) {
+        //         return Carbon::parse($class->date)->format('Y-m-d') == $date->format('Y-m-d');
+        //     });
 
-            $formattedDailySchedule = $dailySchedule->map(function ($class) {
-                return [
-                    'subject' => $class->subject->teacherSubject->subject,
-                    'group' => $class->group->title,
-                    'subgroup' => $class->subgroup,
-                    'number' => $class->number,
-                ];
-            });
+        //     $formattedDailySchedule = $dailySchedule->map(function ($class) {
+        //         return [
+        //             'subject' => $class->subject->teacherSubject->subject,
+        //             'group' => $class->group->title,
+        //             'subgroup' => $class->subgroup,
+        //             'number' => $class->number,
+        //         ];
+        //     });
 
-            $schedule[] = [
-                'day_of_week' => $date->format('l'),
-                'date' => $date->format('Y-m-d'),
-                'classes' => $formattedDailySchedule->values()->all(),
-            ];
-        }
+        //     $schedule[] = [
+        //         'day_of_week' => $date->format('l'),
+        //         'date' => $date->format('Y-m-d'),
+        //         'classes' => $formattedDailySchedule->values()->all(),
+        //     ];
+        // }
 
-        return response()->json($schedule);
+        return response()->json(self::getDaysOfWeek($request->input('start_date'),$request->input('end_date')));
     }
 
     public function addRequest(Request $request, $groupId) {
