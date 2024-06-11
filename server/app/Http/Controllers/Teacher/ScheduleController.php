@@ -77,7 +77,7 @@ class ScheduleController extends Controller
         //     ];
         // }
 
-        return response()->json(self::getDaysOfWeek($request->input('start_date'),$request->input('end_date')));
+        return response()->json(self::getDaysOfWeek($startDate,$endDate));
     }
 
     public function addRequest(Request $request, $groupId) {
