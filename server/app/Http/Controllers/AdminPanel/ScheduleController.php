@@ -26,6 +26,8 @@ class ScheduleController extends Controller
             return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
         }
 
+        $dates = [];
+
         // Получаем расписание для указанного дня недели
         if (isset($validated['dayWeek'])) {
             $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
@@ -34,9 +36,13 @@ class ScheduleController extends Controller
         } else {
             $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
                 ->get();
+            
+            foreach ([1,2,3,4,5,6,7] as $dayWeek) {
+                $dates[] = GroupScheduleClass::where('groupId', $groupId)->where('dayWeek', $dayWeek)->get();
+            }
         }
 
-        dd($scheduleClasses);
+        dd($dates);
         
 
         // Проверяем на наличие замен для каждого занятия
