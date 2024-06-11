@@ -36,6 +36,9 @@ use App\Http\Middleware\AdminPanel\ScheduleCoordinatorAdminMiddleware;
         Route::get('subjects/getList', [SubjectController::class, 'getList']);
         // Необходио вернуть: id предмета, название.
 
+        // Получение списка предметов преподавателей.
+        Route::get('subjects/getTeacherSubjectList', [SubjectController::class, 'getTeacherSubjectList']);
+
         // Получение всех групп (есть фильтрация по специальности, оно в преоритете) (есть возможность поиска. Как ведется поиск. В поле search подается текст и мы его изем по трем полям одновременно по литере, специальности, куратору)
         Route::get('groupList', [GroupController::class, 'getList']); 
         // Необходио вернуть: id группы, литера группы, кол-во студентов, ФИО куратора  
