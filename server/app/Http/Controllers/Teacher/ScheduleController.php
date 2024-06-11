@@ -44,6 +44,17 @@ class ScheduleController extends Controller
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
         $teacherId = $teacher['id'];
 
+        $dayScheduleList = self::getDaysOfWeek($startDate,$endDate);
+
+        foreach ($dayScheduleList as $daySchedule) {
+            $day = $daySchedule['day'];
+            $dayWeek = $daySchedule['dayWeek'];
+
+            $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)->where('dayWeek', $dayWeek)->get();
+
+            $dayScheduleList['scheduleClasses'] = $scheduleClasses;
+        }
+
         // // Получение расписания преподавателя за указанный период
         // $scheduleClasses = GroupScheduleClass::whereHas('subject.teacherSubject', function ($query) use ($teacherId) {
         //     $query->where('userTeacherId', $teacherId);
@@ -77,7 +88,7 @@ class ScheduleController extends Controller
         //     ];
         // }
 
-        return response()->json(self::getDaysOfWeek($startDate,$endDate));
+        return response()->json($dayScheduleList);
     }
 
     public function addRequest(Request $request, $groupId) {
