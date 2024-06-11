@@ -44,7 +44,7 @@ class ScheduleController extends Controller
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
         $teacherId = $teacher['id'];
 
-        $dayScheduleList = collect(self::getDaysOfWeek($startDate,$endDate))->map(function($daySchedule) {
+        $dayScheduleList = collect(self::getDaysOfWeek($startDate,$endDate))->map(function($daySchedule) use ($teacher) {
             $day = $daySchedule['day'];
             $dayWeek = $daySchedule['dayWeek'];
 
