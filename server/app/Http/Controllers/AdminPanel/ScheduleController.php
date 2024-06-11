@@ -136,7 +136,6 @@ class ScheduleController extends Controller
     public function changeSubject(Request $request, $groupId)
     {
         $validated = $request->validate([
-            'groupId' => 'required|exists:groups,id',
             'subjectId' => 'nullable|exists:group_subjects,id',
             'subgroup' => 'nullable|string|max:1',
             'number' => 'required|integer',
