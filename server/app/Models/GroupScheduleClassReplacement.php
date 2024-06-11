@@ -9,15 +9,24 @@ class GroupScheduleClassReplacement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['userTeacherId', 'groupScheduleClassId', 'subgroup', 'reason'];
+    protected $table = 'group_schedule_class_replacement_rq';
 
-    public function teacher()
+    protected $fillable = [
+        'groupId',
+        'date',
+        'subjectId',
+        'subgroup',
+        'number',
+        'reason'
+    ];
+
+    public function subject()
     {
-        return $this->belongsTo(UserTeacher::class, 'userTeacherId');
+        return $this->belongsTo(GroupSubject::class, 'subjectId');
     }
 
-    public function scheduleClass()
+    public function group()
     {
-        return $this->belongsTo(GroupScheduleClass::class, 'groupScheduleClassId');
+        return $this->belongsTo(Group::class, 'groupId');
     }
 }
