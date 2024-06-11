@@ -255,32 +255,32 @@ class DatabaseSeeder extends Seeder
 
         // ^ Расписание
 
-        DB::table('group_schedule_classes')->insert([
-            'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-            'date' => '2024-01-01',
-            'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
-            'number' => 2,
-            'subgroup' => '',
-            'created_at'=>now()
-        ]);
+        // DB::table('group_schedule_classes')->insert([
+        //     'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
+        //     'date' => '2024-01-01',
+        //     'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
+        //     'number' => 2,
+        //     'subgroup' => '',
+        //     'created_at'=>now()
+        // ]);
 
-        DB::table('group_schedule_classes')->insert([
-            'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-            'date' => '2024-01-01',
-            'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
-            'number' => 3,
-            'subgroup' => '',
-            'created_at'=>now()
-        ]);
+        // DB::table('group_schedule_classes')->insert([
+        //     'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
+        //     'date' => '2024-01-01',
+        //     'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
+        //     'number' => 3,
+        //     'subgroup' => '',
+        //     'created_at'=>now()
+        // ]);
 
-        DB::table('group_schedule_classes')->insert([
-            'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-            'date' => '2024-01-01',
-            'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
-            'number' => 4,
-            'subgroup' => '',
-            'created_at'=>now()
-        ]);
+        // DB::table('group_schedule_classes')->insert([
+        //     'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
+        //     'date' => '2024-01-01',
+        //     'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
+        //     'number' => 4,
+        //     'subgroup' => '',
+        //     'created_at'=>now()
+        // ]);
 
         
 
