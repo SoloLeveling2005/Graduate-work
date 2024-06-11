@@ -17,9 +17,14 @@ class ScheduleController extends Controller
     public function list(Request $request, $groupId)
     {
         $validated = $request->validate([
-            'groupId' => 'required|exists:groups,id',
             'dayWeek' => 'required|integer|min:1|max:6',
         ]);
+
+        $group = GroupModal::find($groupId);
+
+        if (!$group) {
+            return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
+        }
 
         // Получаем расписание для указанного дня недели
         $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
