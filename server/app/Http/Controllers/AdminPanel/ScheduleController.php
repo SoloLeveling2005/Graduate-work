@@ -115,6 +115,28 @@ class ScheduleController extends Controller
     //     return response()->json(['success' => true, 'status'=>200], 200);
     // }
 
+    public function removeSubject(Request $request, $groupId) 
+    {
+        $validated = $request->validate([
+            'number' => 'required|integer',
+            'dayWeek' => 'required|integer|min:1|max:6',
+        ]);
+
+        $group = GroupModal::find($groupId);
+
+        if (!$group) {
+            return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
+        }
+
+        GroupScheduleClass::where([
+            'dayWeek' => $request->input('dayWeek'),
+            'number' => $request->input('number'),
+            'groupId' => $groupId,
+        ])->delete();
+
+        return response()->json(['status'=>200], 200);
+    }
+
     public function changeSubject(Request $request, $groupId)
     {
         $validated = $request->validate([

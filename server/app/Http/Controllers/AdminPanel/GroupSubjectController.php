@@ -92,17 +92,13 @@ class GroupSubjectController extends Controller
      */
     public function remove($groupId, $subjectId)
     {
-        $groupSubjectExists = GroupSubject::where('groupId', $groupId)
-            ->where('teacherSubjectId', $subjectId)
-            ->exists();
+        $groupSubjectExists = GroupSubject::find($subjectId);
 
         if (!$groupSubjectExists) {
             return response()->json(['error' => '404 Group Subject In Group Not Found', 'status'=>404], 404);
         }
 
-        GroupSubject::where('groupId', $groupId)
-            ->where('teacherSubjectId', $subjectId)
-            ->delete();
+        $groupSubjectExists->delete();
 
         return response()->json(['status' => 200], 200);
     }

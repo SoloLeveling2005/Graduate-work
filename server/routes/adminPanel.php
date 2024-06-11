@@ -161,6 +161,10 @@ use App\Http\Middleware\AdminPanel\ScheduleCoordinatorAdminMiddleware;
                     // * Права доступа: Суперадмин, Координатор расписания.
                     Route::middleware(ScheduleCoordinatorAdminMiddleware::class)->post('change', [ScheduleController::class, 'changeSubject']);
 
+                    // менить предмет в расписании за определенный день.
+                    // * Права доступа: Суперадмин, Координатор расписания.
+                    Route::middleware(ScheduleCoordinatorAdminMiddleware::class)->post('removeSubject', [ScheduleController::class, 'removeSubject']);
+
                 });
 
                 Route::prefix('subjects')->group(function () {
