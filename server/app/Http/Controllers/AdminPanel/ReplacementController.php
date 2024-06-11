@@ -89,6 +89,11 @@ class ReplacementController extends Controller
             return response()->json(['error' => '404 Request Not Found', 'status' => 404], 404);
         }
 
+        // Удаление подтвержденных замен с данными параметрами 
+        GroupScheduleClassReplacement::where('date', $requestReplacement->date)
+            ->where('number', $requestReplacement->number)
+            ->delete();
+            
         // Создание подтвержденной замены
         $replacement = GroupScheduleClassReplacement::create([
             'groupId' => $requestReplacement->groupId,
