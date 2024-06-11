@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('group_schedule_classes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('groupId')->constrained(table:'groups')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->timestamp('date');
             $table->foreignId('subjectId')->nullable()->constrained('group_subjects')->onUpdate('cascade')->onDelete('set null')->default(null);
             $table->string('subgroup', 1)->nullable(); // A группа  /  B группа  / null - общая пара.
             $table->integer('number');
+            $table->int('dayWeek');
             $table->timestamps();
         });
     }
