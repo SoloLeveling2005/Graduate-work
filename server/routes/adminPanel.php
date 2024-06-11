@@ -227,7 +227,7 @@ use App\Http\Middleware\AdminPanel\ScheduleCoordinatorAdminMiddleware;
                 // TODO - Получение запросов на замену.
                 Route::get('list', [ReplacementController::class, 'requestsList']);
 
-                // TODO - Получение запросов на замену.
+                // TODO - Получение запросов на замену за определенный периуд.
                 Route::get('requestsListDateRange', [ReplacementController::class, 'requestsListDateRange']);
 
                 // TODO - Получение запросов на замену (текущий месяц по умолчанию или указанный в параметре).
@@ -237,11 +237,11 @@ use App\Http\Middleware\AdminPanel\ScheduleCoordinatorAdminMiddleware;
 
                     // TODO - Отказать в замене.
                     // * Права доступа: Суперадмин, Координатор расписания.
-                    Route::middleware(ScheduleCoordinatorAdminMiddleware::class)->get('reject', [ReplacementController::class, 'rejectReplacement']);
+                    Route::middleware(ScheduleCoordinatorAdminMiddleware::class)->post('reject', [ReplacementController::class, 'rejectReplacement']);
 
                     // TODO - Одобрить замену.
                     // * Права доступа: Суперадмин, Координатор расписания.
-                    Route::middleware(ScheduleCoordinatorAdminMiddleware::class)->get('confirm', [ReplacementController::class, 'confirmReplacement']);
+                    Route::middleware(ScheduleCoordinatorAdminMiddleware::class)->post('confirm', [ReplacementController::class, 'confirmReplacement']);
 
                 });
 
