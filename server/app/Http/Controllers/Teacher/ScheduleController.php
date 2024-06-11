@@ -50,7 +50,7 @@ class ScheduleController extends Controller
             $day = $daySchedule['day'];
             $dayWeek = $daySchedule['dayWeek'];
 
-            $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)->where('dayWeek', $dayWeek)->get();
+            $scheduleClasses = GroupScheduleClass::with(['subject.teacherSubject.teacher'])->where(['subject.teacherSubject.teacher.id'=>$teacher['id'], 'dayWeek'=>$dayWeek])->get();
 
             $dayScheduleList['scheduleClasses'] = $scheduleClasses;
         }
