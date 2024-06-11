@@ -9,7 +9,7 @@ class GroupScheduleClass extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['groupId', 'number', 'date', 'subgroup','subjectId'];
+    protected $fillable = ['groupId', 'number', 'date', 'subgroup','subjectId', 'dayWeek'];
 
     public function group()
     {
