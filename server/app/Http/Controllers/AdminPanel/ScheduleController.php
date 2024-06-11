@@ -17,7 +17,7 @@ class ScheduleController extends Controller
     public function list(Request $request, $groupId)
     {
         $validated = $request->validate([
-            'dayWeek' => 'required|integer|min:1|max:6',
+            'dayWeek' => 'integer|min:1|max:6',
         ]);
 
         $group = GroupModal::find($groupId);
@@ -27,9 +27,15 @@ class ScheduleController extends Controller
         }
 
         // Получаем расписание для указанного дня недели
-        $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
-            ->where('dayWeek', $validated['dayWeek'])
-            ->get();
+        if ($validated['dayWeek']) {
+            $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
+                ->where('dayWeek', $validated['dayWeek'])
+                ->get();
+        } else {
+            $scheduleClasses = GroupScheduleClass::where('groupId', $groupId)
+                ->get();
+        }
+        
 
         // Проверяем на наличие замен для каждого занятия
         $scheduleWithReplacements = $scheduleClasses->map(function ($class) {
