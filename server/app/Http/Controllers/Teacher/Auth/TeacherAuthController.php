@@ -20,6 +20,8 @@ class TeacherAuthController extends Controller
             'replace_password_repeat' => 'nullable|string|min:8', // Новое поле для замены пароля повтор
         ]);
 
+        dd($valid_data['login'], $valid_data['password']);
+
         $teacher = UserTeacher::where('login', $valid_data['login'])->first();
 
         if (isset($valid_data['replace_password']) && $valid_data['replace_password'] != $valid_data['replace_password_repeat']) {
