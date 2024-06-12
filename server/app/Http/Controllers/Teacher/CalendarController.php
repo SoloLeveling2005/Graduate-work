@@ -27,15 +27,10 @@ class CalendarController extends Controller
             ->join('group_subjects', 'groups.id', '=', 'group_subjects.groupId')
             ->join('user_teacher_subjects', 'group_subjects.teacherSubjectId', '=', 'user_teacher_subjects.id')
             ->where('user_teacher_subjects.userTeacherId', $teacherId)
-            ->select('groups.*')
-            ->get('id');
+            ->select('groups.id')
+            ->get();
 
-        // $events = CalendarEvent::where('groupId', $groupId)
-        //     ->whereDate('date', today())
-        //     ->get();
-        return response()->json($groups->map(function($group) {
-            return $group['id'];
-        }));
+        return response()->json($groups->pluck('id'));
     }
 
     public function eventsByDate(Request $request)
