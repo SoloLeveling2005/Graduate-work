@@ -55,12 +55,12 @@ class LibraryController extends Controller
             });
         }
         if (isset($validated['class'])) {
-            $books->orWhen(isset($validated['class']) ? $validated['class'] : '', function ($query, $class) {
+            $books->when(isset($validated['class']) ? $validated['class'] : '', function ($query, $class) {
                 return $query->where('class', 'like', '%' . $class . '%');
             });
         }
         if (isset($validated['title'])) {
-            $books->orWhen(isset($validated['title']) ? $validated['title'] : '', function ($query, $title) {
+            $books->when(isset($validated['title']) ? $validated['title'] : '', function ($query, $title) {
                 return $query->where('title', 'like', '%' . $title . '%');
             });
         }
