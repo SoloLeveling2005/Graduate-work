@@ -16,7 +16,7 @@ class CalendarController extends Controller
         return response()->json($groups);
     }
 
-    public function eventsToday($groupId)
+    public function eventsToday(Request $request, $groupId)
     {
         $teacher = $request->user;
         $teacherId = $teacher['id'];
@@ -35,7 +35,7 @@ class CalendarController extends Controller
         return response()->json($groups);
     }
 
-    public function eventsByDate($groupId, $date)
+    public function eventsByDate(Request $request, $groupId, $date)
     {
         $events = CalendarEvent::where('groupId', $groupId)
             ->whereDate('date', $date)
