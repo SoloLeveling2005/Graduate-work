@@ -6,6 +6,7 @@ use App\Http\Controllers\Student\Auth\StudentAuthController as StudentAuthContro
 
 use App\Http\Middleware\Student\StudentAuthMiddleware as StudentAuthMiddleware;
 use App\Http\Controllers\Student\LibraryController;
+use App\Http\Controllers\Student\CalendarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,5 @@ Route::middleware(StudentAuthMiddleware::class)->group(function() {
     });
     Route::prefix('calendar')->group(function() {
         Route::get('events', [CalendarController::class, 'eventsByDate']);
-        Route::post('createEvent', [CalendarController::class, 'createEvent']);
     });
 });
