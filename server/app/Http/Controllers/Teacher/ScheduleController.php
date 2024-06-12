@@ -63,6 +63,9 @@ class ScheduleController extends Controller
                 }
             }
 
+            // Сортировка по номеру занятия
+            ksort($processedClasses);
+
             $daySchedule['scheduleClasses'] = $processedClasses;
 
             return $daySchedule;
@@ -89,6 +92,7 @@ class ScheduleController extends Controller
             'dayWeek' => $class->dayWeek,
         ];
     }
+
 
     public function addRequest(Request $request, $groupId) {
          $request->validate([
