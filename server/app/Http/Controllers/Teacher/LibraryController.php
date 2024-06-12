@@ -51,10 +51,10 @@ class LibraryController extends Controller
             ->when(isset($validated['author']) ? $validated['author'] : '', function ($query, $author) {
                 return $query->where('author', 'like', '%' . $author . '%');
             })
-            ->when(isset($validated['class']) ? $validated['class'] : '', function ($query, $class) {
+            ->orWhen(isset($validated['class']) ? $validated['class'] : '', function ($query, $class) {
                 return $query->where('class', 'like', '%' . $class . '%');
             })
-            ->when(isset($validated['title']) ? $validated['title'] : '', function ($query, $title) {
+            ->orWhen(isset($validated['title']) ? $validated['title'] : '', function ($query, $title) {
                 return $query->where('title', 'like', '%' . $title . '%');
             })
             ->get();
