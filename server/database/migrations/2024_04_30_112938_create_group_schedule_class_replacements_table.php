@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('subgroup', 1)->nullable(); // A группа  /  B группа  / null - общая пара.
             $table->integer('number');
             $table->string('reason', 255);
-            $table->timestamps();
+            $table->timestamps();       
         });
     }
 
