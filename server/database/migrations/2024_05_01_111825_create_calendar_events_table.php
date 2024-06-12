@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->date('date');
-            $table->time('time');
-            $table->string('place');
+            $table->time('time')->nullable();
+            $table->string('place')->nullable();
             $table->boolean('eventType'); // true - Мероприятие , false - Задание
             $table->foreignId('groupId')->constrained(table:'groups')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('subgroup', 1)->nullable();
