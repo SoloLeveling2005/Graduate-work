@@ -50,19 +50,13 @@ class LibraryController extends Controller
         $books = Book::query();
 
         if (isset($validated['author'])) {
-            $books->when(isset($validated['author']) ? $validated['author'] : '', function ($query, $author) {
-                return $query->where('author', 'like', '%' . $author . '%');
-            });
+            $query->where('author', 'like', '%' . $validated['author'] . '%');
         }
         if (isset($validated['class'])) {
-            $books->when(isset($validated['class']) ? $validated['class'] : '', function ($query, $class) {
-                return $query->where('class', 'like', '%' . $class . '%');
-            });
+            $query->where('class', 'like', '%' . $validated['class'] . '%');
         }
         if (isset($validated['title'])) {
-            $books->when(isset($validated['title']) ? $validated['title'] : '', function ($query, $title) {
-                return $query->where('title', 'like', '%' . $title . '%');
-            });
+            $query->where('title', 'like', '%' . $validated['title'] . '%');
         }
 
         return response()->json($books->get());
