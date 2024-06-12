@@ -28,7 +28,7 @@ class CalendarController extends Controller
         $groupId = $user['groupId'];
 
         $events = CalendarEvent::where('groupId', $groupId)
-            ->whereDate('date', today())
+            ->whereDate('date', $date)
             ->get();
         return response()->json($events);
     }
