@@ -104,7 +104,7 @@ class SLAuthorizationGuard
 
             RateLimiter::clear($key);
 
-            return ['token' => $token, 'expires_at' => $expiration, 'status' => 200];
+            return ['token' => $token, 'expires_at' => $expiration, 'status' => 200, 'user'=>$user->toArray()];
         } else {
             RateLimiter::hit($key, 60);
             return ['error' => 'User not found', 'status' => 404];
