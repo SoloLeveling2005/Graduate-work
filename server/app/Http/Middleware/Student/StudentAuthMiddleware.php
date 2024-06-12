@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\teacher;
+namespace App\Http\Middleware\Student;
 
 use Closure;
 use Illuminate\Http\Request;
