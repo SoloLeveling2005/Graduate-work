@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('place');
             $table->boolean('eventType'); // true - Мероприятие , false - Задание
             $table->foreignId('groupId')->constrained(table:'groups')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('subgroup', 1)->nullable();
             $table->timestamps();
         });
     }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Teacher\GroupController as GroupController;
 use App\Http\Controllers\Teacher\ScheduleController as ScheduleController;
 use App\Http\Controllers\Teacher\TeacherController as TeacherController;
 use App\Http\Controllers\Teacher\LibraryController;
+use App\Http\Controllers\Teacher\CalendarController;
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
@@ -56,7 +57,15 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
         Route::get('books', [LibraryController::class, 'index']);
         Route::get('books/search', [LibraryController::class, 'search']);
     });
+
+    Route::prefix('calendar')->group(function() {
+        Route::get('eventsToday', [CalendarController::class, 'eventsToday']);
+        Route::get('eventsByDate', [CalendarController::class, 'eventsByDate']);
+        Route::post('createEvent', [CalendarController::class, 'createEvent']);
+    });
 });
+
+
 
 
 
