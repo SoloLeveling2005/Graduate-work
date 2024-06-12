@@ -57,7 +57,7 @@ class ScheduleController extends Controller
 
                 dd(GroupScheduleClass::with(['subject.teacherSubject.teacher' => function($query) use ($teacher) {
                 $query->where('id', $teacher['id']);
-            }, 'subject.teacherSubject.subject'])->where('dayWeek', 1)->get()->toArray());
+            }, 'subject.teacherSubject.subject', 'subject.teacherSubject.teacher'])->where('dayWeek', 1)->get()->toArray());
 
             foreach ($scheduleClasses as $class) {
                 if (is_null($class->subgroup)) {
