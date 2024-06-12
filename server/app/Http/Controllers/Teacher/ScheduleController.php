@@ -50,7 +50,7 @@ class ScheduleController extends Controller
 
             $scheduleClasses = GroupScheduleClass::with(['subject.teacherSubject.teacher' => function($query) use ($teacher) {
                 $query->where('id', $teacher['id']);
-            }, 'subject.teacherSubject.subject'])->where('dayWeek', $dayWeek)->get();
+            }])->where('dayWeek', $dayWeek)->get();
 
             // Разделение общих занятий на подгруппы и группировка по номеру
             $processedClasses = [];
