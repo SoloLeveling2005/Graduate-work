@@ -44,7 +44,7 @@ class ScheduleController extends Controller
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
         $teacherId = $teacher['id'];
 
-        $dayScheduleList = collect(self::getDaysOfWeek($startDate, $endDate))->map(function($daySchedule) use ($teacher) {
+        $dayScheduleList = collect($this->getDaysOfWeek($startDate, $endDate))->map(function($daySchedule) use ($teacher) {
             $day = $daySchedule['day'];
             $dayWeek = $daySchedule['dayWeek'];
 
@@ -52,14 +52,14 @@ class ScheduleController extends Controller
                 $query->where('id', $teacher['id']);
             }])->where('dayWeek', $dayWeek)->get();
 
-            // Разделение общих занятий на подгруппы
+            // Разделение общих занятий на подгруппы и группировка по номеру
             $processedClasses = [];
             foreach ($scheduleClasses as $class) {
                 if (is_null($class->subgroup)) {
-                    $processedClasses[] = $this->createSubgroupClass($class, 'A');
-                    $processedClasses[] = $this->createSubgroupClass($class, 'B');
+                    $processedClasses[$class->number][] = $this->createSubgroupClass($class, 'A');
+                    $processedClasses[$class->number][] = $this->createSubgroupClass($class, 'B');
                 } else {
-                    $processedClasses[] = $this->createSubgroupClass($class, $class->subgroup);
+                    $processedClasses[$class->number][] = $this->createSubgroupClass($class, $class->subgroup);
                 }
             }
 
@@ -76,7 +76,7 @@ class ScheduleController extends Controller
      *
      * @param  GroupScheduleClass  $class
      * @param  string  $subgroup
-     * @return GroupScheduleClass
+     * @return object
      */
     private function createSubgroupClass($class, $subgroup)
     {
@@ -89,7 +89,6 @@ class ScheduleController extends Controller
             'dayWeek' => $class->dayWeek,
         ];
     }
-
 
     public function addRequest(Request $request, $groupId) {
          $request->validate([
