@@ -56,10 +56,10 @@ class ScheduleController extends Controller
             $processedClasses = [];
             foreach ($scheduleClasses as $class) {
                 if (is_null($class->subgroup)) {
-                    $processedClasses[$class->number]['A'] = $this->createSubgroupClass($class, 'A');
-                    $processedClasses[$class->number]['B'] = $this->createSubgroupClass($class, 'B');
+                    $processedClasses[intval($class->number)]['A'] = $this->createSubgroupClass($class, 'A');
+                    $processedClasses[intval($class->number)]['B'] = $this->createSubgroupClass($class, 'B');
                 } else {
-                    $processedClasses[$class->number][$class->subgroup] = $this->createSubgroupClass($class, $class->subgroup);
+                    $processedClasses[intval($class->number)][$class->subgroup] = $this->createSubgroupClass($class, $class->subgroup);
                 }
             }
 
