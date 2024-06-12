@@ -65,6 +65,11 @@ class SLAuthorizationGuard
         $tokenModel = new $guardConfig['tokenModel'];
 
         $query = $userModel->query();
+
+        if ($this->guard == 'admin') {
+            $query->with('privileges'); 
+        }
+
         $check_password = false;
         $password_value = null;
 
@@ -102,9 +107,7 @@ class SLAuthorizationGuard
                 'expires_at' => $expiration,
             ]);
 
-            if ($this->guard == 'admin') {
-                dd(123);
-            }
+            
 
             RateLimiter::clear($key);
 
