@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
-class LibraryController extends Controller
+class LibraryControllers extends Controller
 {
     public function store(Request $request)
     {
