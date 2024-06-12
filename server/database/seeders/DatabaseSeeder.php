@@ -251,7 +251,7 @@ class DatabaseSeeder extends Seeder
                 ])->first();
 
                 DB::table('classrooms')->insert([
-                    'groupSubjectId' => $group_subject['id']
+                    'groupSubjectId' => $group_subject->id
                 ]);
             }
         }
