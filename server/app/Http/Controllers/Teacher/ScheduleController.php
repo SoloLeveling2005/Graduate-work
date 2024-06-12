@@ -87,9 +87,6 @@ class ScheduleController extends Controller
             'subgroup' => $subgroup,
             'number' => $class->number,
             'dayWeek' => $class->dayWeek,
-            'created_at' => $class->created_at,
-            'updated_at' => $class->updated_at,
-            'subject' => $class->subject
         ];
     }
 
