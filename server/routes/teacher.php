@@ -59,8 +59,7 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
     });
 
     Route::prefix('calendar')->group(function() {
-        Route::get('eventsToday', [CalendarController::class, 'eventsToday']);
-        Route::get('eventsByDate', [CalendarController::class, 'eventsByDate']);
+        Route::get('events', [CalendarController::class, 'eventsByDate']);
         Route::post('createEvent', [CalendarController::class, 'createEvent']);
     });
 });
