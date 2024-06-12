@@ -91,7 +91,7 @@ class ScheduleController extends Controller
             'subjectId' => $class->subjectId,
             'subjectTitle' => $class->subject->toArray()['teacher_subject']['subject']['title'],
             'subgroup' => $subgroup,
-            'group' => $class->group,
+            'group' => $class->group->title,
             'number' => $class->number,
             'dayWeek' => $class->dayWeek,
         ];
