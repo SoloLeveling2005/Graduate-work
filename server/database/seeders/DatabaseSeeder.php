@@ -48,35 +48,17 @@ class DatabaseSeeder extends Seeder
         // ^ Предметы
 
         DB::table('subjects')->insert([
-            'title'=>'математика',
-        ]);
-
-        DB::table('subjects')->insert([
-            'title'=>'Основа права',
-        ]);
-
-        DB::table('subjects')->insert([
-            'title'=>'Физкультура',
-        ]);
-
-        DB::table('subjects')->insert([
-            'title'=>'Физика',
-        ]);
-
-        DB::table('subjects')->insert([
-            'title'=>'Основа предпринимательства',
-        ]);
-
-        DB::table('subjects')->insert([
-            'title'=>'Информатика',
-        ]);
-
-        DB::table('subjects')->insert([
-            'title'=>'Основы Frontend',
-        ]);
-
-        DB::table('subjects')->insert([
-            'title'=>'Разработка мобильных приложений',
+            ['title' => 'Математика'],
+            ['title' => 'Основа права'],
+            ['title' => 'Физкультура'],
+            ['title' => 'Физика'],
+            ['title' => 'Основа предпринимательства'],
+            ['title' => 'Информатика'],
+            ['title' => 'Основы Frontend'],
+            ['title' => 'Разработка мобильных приложений'],
+            ['title' => 'Химия'],
+            ['title' => 'Биология'],
+            ['title' => 'География'],
         ]);
 
 
@@ -84,11 +66,27 @@ class DatabaseSeeder extends Seeder
         // ^ Аудитории
 
         DB::table('auditoria')->insert([
+            'number'=>3213
+        ]);
+
+        DB::table('auditoria')->insert([
             'number'=>2117
         ]);
 
         DB::table('auditoria')->insert([
-            'number'=>3213
+            'number'=>1010
+        ]);
+
+        DB::table('auditoria')->insert([
+            'number'=>2020
+        ]);
+
+        DB::table('auditoria')->insert([
+            'number'=>3030
+        ]);
+
+        DB::table('auditoria')->insert([
+            'number'=>4040
         ]);
 
 
@@ -144,81 +142,110 @@ class DatabaseSeeder extends Seeder
 
         // ^ Преподаватели
 
-        DB::table('user_teachers')->insert([
-            'login' => self::toLogin('Попов Денис Валентинович'),
-            'password' => Hash::make('popov12'),
-            'fio' => 'Попов Денис Валентинович',
-            'auditoriaId' => DB::table('auditoria')->where(['number'=>3213])->value('id'),
-            'created_at'=>now()
-        ]);
+        $teachers = [
+            ['login' => self::toLogin('Попов Денис Валентинович'), 'password' => 'popov12', 'fio' => 'Попов Денис Валентинович', 'auditoria' => 3213],
+            ['login' => self::toLogin('Гульнар Нурхамитовна'), 'password' => 'gulnar12', 'fio' => 'Гульнар Нурхамитовна', 'auditoria' => 2117],
+            ['login' => self::toLogin('Иванов Иван Иванович'), 'password' => 'ivanov12', 'fio' => 'Иванов Иван Иванович', 'auditoria' => 1010],
+            ['login' => self::toLogin('Сидоров Петр Петрович'), 'password' => 'sidorov12', 'fio' => 'Сидоров Петр Петрович', 'auditoria' => 2020],
+            ['login' => self::toLogin('Смирнова Анна Владимировна'), 'password' => 'smirnova12', 'fio' => 'Смирнова Анна Владимировна', 'auditoria' => 3030],
+            ['login' => self::toLogin('Кузнецов Андрей Андреевич'), 'password' => 'kuznetsov12', 'fio' => 'Кузнецов Андрей Андреевич', 'auditoria' => 4040],
+        ];
 
-        DB::table('user_teachers')->insert([
-            'login' => self::toLogin('Гульнар Нурхамитовна'),
-            'password' => Hash::make('gulnar12'),
-            'fio' => 'Гульнар Нурхамитовна',
-            'auditoriaId' => DB::table('auditoria')->where(['number'=>2117])->value('id'),
-            'created_at'=>now()
-        ]);
-
+        foreach ($teachers as $teacher) {
+            DB::table('user_teachers')->insert([
+                'login' => $teacher['login'],
+                'password' => Hash::make($teacher['password']),
+                'fio' => $teacher['fio'],
+                'auditoriaId' => DB::table('auditoria')->where(['number' => $teacher['auditoria']])->value('id'),
+                'created_at' => now()
+            ]);
+        }
 
 
         // ^ Предметы преподавателей
 
-        DB::table('user_teacher_subjects')->insert([
-            'userTeacherId' => DB::table('user_teachers')->where(['login'=>self::toLogin('Попов Денис Валентинович')])->value('id'),
-            'subjectId' => DB::table('subjects')->where(['title'=>'Основы Frontend'])->value('id'),
-            'created_at'=>now()
-        ]);
+        $teacherSubjects = [
+            ['login' => 'Попов Денис Валентинович', 'subjects' => ['Основы Frontend', 'Разработка мобильных приложений']],
+            ['login' => 'Гульнар Нурхамитовна', 'subjects' => ['Физика']],
+            ['login' => 'Иванов Иван Иванович', 'subjects' => ['Математика', 'Информатика']],
+            ['login' => 'Сидоров Петр Петрович', 'subjects' => ['Физкультура', 'География']],
+            ['login' => 'Смирнова Анна Владимировна', 'subjects' => ['Химия', 'Биология']],
+            ['login' => 'Кузнецов Андрей Андреевич', 'subjects' => ['Основа права', 'Основа предпринимательства']],
+        ];
 
-        DB::table('user_teacher_subjects')->insert([
-            'userTeacherId' => DB::table('user_teachers')->where(['login'=>self::toLogin('Попов Денис Валентинович')])->value('id'),
-            'subjectId' => DB::table('subjects')->where(['title'=>'Разработка мобильных приложений'])->value('id'),
-            'created_at'=>now()
-        ]);
-
-        DB::table('user_teacher_subjects')->insert([
-            'userTeacherId' => DB::table('user_teachers')->where(['login'=>self::toLogin('Гульнар Нурхамитовна')])->value('id'),
-            'subjectId' => DB::table('subjects')->where(['title'=>'Физика'])->value('id'),
-            'created_at'=>now()
-        ]);
+        foreach ($teacherSubjects as $teacherSubject) {
+            $userTeacherId = DB::table('user_teachers')->where(['login' => self::toLogin($teacherSubject['login'])])->value('id');
+            foreach ($teacherSubject['subjects'] as $subject) {
+                DB::table('user_teacher_subjects')->insert([
+                    'userTeacherId' => $userTeacherId,
+                    'subjectId' => DB::table('subjects')->where(['title' => $subject])->value('id'),
+                    'created_at' => now()
+                ]);
+            }
+        }
 
 
 
         // ^ Специальности
 
         DB::table('departments')->insert([
-            'title' => 'Разработчик ПО'
+            ['title' => 'Разработчик ПО'],
+            ['title' => 'Техник информационных систем'],
+            ['title' => 'Техник информационной безопасности'],
+            ['title' => 'Сетевой администратор'],
+            ['title' => 'Администратор баз данных'],
         ]);
-        
-        DB::table('departments')->insert([
-            'title' => 'Техник информационных систем'
-        ]);
-        
-        DB::table('departments')->insert([
-            'title' => 'Техник информационной безопасности'
-        ]);
-        
+                
 
 
         // ^ Группы
 
-        DB::table('groups')->insert([
-            'title' => 'П-21-57к',
-            'departmentId' => DB::table('departments')->where(['title'=>'Разработчик ПО'])->value('id'),
-            'userTeacherId' => DB::table('user_teachers')->where(['fio'=>'Гульнар Нурхамитовна'])->value('id'),
-            'color' => '008000',  // Hex
-            'created_at'=>now()
-        ]);
-        
+        $groups = [
+            ['title' => 'П-21-57к', 'department' => 'Разработчик ПО', 'teacher' => 'Гульнар Нурхамитовна', 'color' => '008000'],
+            ['title' => 'П-21-58к', 'department' => 'Разработчик ПО', 'teacher' => 'Иванов Иван Иванович', 'color' => 'FF0000'],
+            ['title' => 'ТИ-21-21', 'department' => 'Техник информационных систем', 'teacher' => 'Сидоров Петр Петрович', 'color' => '0000FF'],
+            ['title' => 'ТИ-21-22', 'department' => 'Техник информационных систем', 'teacher' => 'Смирнова Анна Владимировна', 'color' => 'FFFF00'],
+            ['title' => 'ТИБ-21-01', 'department' => 'Техник информационной безопасности', 'teacher' => 'Кузнецов Андрей Андреевич', 'color' => '00FFFF'],
+        ];
+
+        foreach ($groups as $group) {
+            DB::table('groups')->insert([
+                'title' => $group['title'],
+                'departmentId' => DB::table('departments')->where(['title' => $group['department']])->value('id'),
+                'userTeacherId' => DB::table('user_teachers')->where(['fio' => $group['teacher']])->value('id'),
+                'color' => $group['color'],
+                'created_at' => now()
+            ]);
+        }
+                
 
 
         // ^ Предметы группы
 
-        DB::table('group_subjects')->insert([
-            'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-            'teacherSubjectId' => DB::table('user_teachers')->where(['login'=>self::toLogin('Попов Денис Валентинович')])->value('id'),
-            'created_at'=>now()
-        ]);
+        $groupSubjects = [
+            ['group' => 'П-21-57к', 'teacher' => 'Попов Денис Валентинович', 'subjects' => ['Основы Frontend', 'Разработка мобильных приложений']],
+            ['group' => 'П-21-58к', 'teacher' => 'Иванов Иван Иванович', 'subjects' => ['Математика', 'Информатика']],
+            ['group' => 'ТИ-21-21', 'teacher' => 'Сидоров Петр Петрович', 'subjects' => ['Физкультура', 'География']],
+            ['group' => 'ТИ-21-22', 'teacher' => 'Смирнова Анна Владимировна', 'subjects' => ['Химия', 'Биология']],
+            ['group' => 'ТИБ-21-01', 'teacher' => 'Кузнецов Андрей Андреевич', 'subjects' => ['Основа права', 'Основа предпринимательства']],
+        ];
+
+        foreach ($groupSubjects as $groupSubject) {
+            $groupId = DB::table('groups')->where(['title' => $groupSubject['group']])->value('id');
+            foreach ($groupSubject['subjects'] as $subject) {
+                $teacherSubjectId = DB::table('user_teacher_subjects')
+                    ->join('user_teachers', 'user_teacher_subjects.userTeacherId', '=', 'user_teachers.id')
+                    ->where('user_teachers.login', self::toLogin($groupSubject['teacher']))
+                    ->where('user_teacher_subjects.subjectId', DB::table('subjects')->where(['title' => $subject])->value('id'))
+                    ->value('user_teacher_subjects.id');
+                
+                DB::table('group_subjects')->insert([
+                    'groupId' => $groupId,
+                    'teacherSubjectId' => $teacherSubjectId,
+                    'created_at' => now()
+                ]);
+            }
+        }
         
 
 
