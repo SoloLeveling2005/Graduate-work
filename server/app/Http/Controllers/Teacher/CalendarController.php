@@ -38,6 +38,8 @@ class CalendarController extends Controller
 
         $groupIds = $groups->pluck('id');
 
+        dd($date);
+
         $events = CalendarEvent::whereIn('groupId', $groupIds)
             ->whereDate('date', $date)
             ->get();
