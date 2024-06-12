@@ -20,8 +20,12 @@ class CalendarController extends Controller
     public function eventsByDate(Request $request)
     {
         $validated = $request->validate([
-            'date' => 'required|date',
+            'teacherId' => 'required|integer',
+            'date' => 'nullable|date',
         ]);
+
+        $teacherId = $validated['teacherId'];
+        $date = $validated['date'] ?? today()->toDateString();
 
         $groups = DB::table('groups')
             ->distinct()
@@ -32,7 +36,6 @@ class CalendarController extends Controller
             ->get();
 
         $groupIds = $groups->pluck('id');
-        $date = $validated['date'];
 
         $events = CalendarEvent::whereIn('groupId', $groupIds)
             ->whereDate('date', $date)
@@ -40,6 +43,7 @@ class CalendarController extends Controller
 
         return response()->json($events);
     }
+
 
     public function createEvent(Request $request)
     {
