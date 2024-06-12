@@ -16,7 +16,7 @@ class CalendarController extends Controller
         return response()->json($groups);
     }
 
-    public function eventsToday(Request $request, $groupId)
+    public function eventsToday(Request $request)
     {
         $teacher = $request->user;
         $teacherId = $teacher['id'];
