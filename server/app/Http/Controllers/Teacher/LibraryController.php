@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
-class LibraryControllers extends Controller
+class LibraryController extends Controller
 {
     public function store(Request $request)
     {
