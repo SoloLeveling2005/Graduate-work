@@ -48,13 +48,13 @@ class LibraryController extends Controller
         ]);
 
         $books = Book::query()
-            ->when($validated['author'], function ($query, $author) {
+            ->when(isset($validated['author']) ? $validated['author'] : '', function ($query, $author) {
                 return $query->where('author', 'like', '%' . $author . '%');
             })
-            ->when($validated['class'], function ($query, $class) {
+            ->when(isset($validated['class']) ? $validated['class'] : '', function ($query, $class) {
                 return $query->where('class', 'like', '%' . $class . '%');
             })
-            ->when($validated['title'], function ($query, $title) {
+            ->when(isset($validated['title']) ? $validated['title'] : '', function ($query, $title) {
                 return $query->where('title', 'like', '%' . $title . '%');
             })
             ->get();
