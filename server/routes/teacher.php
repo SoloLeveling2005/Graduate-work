@@ -6,6 +6,7 @@ use App\Http\Controllers\Teacher\Auth\TeacherAuthController as TeacherAuthContro
 use App\Http\Controllers\Teacher\GroupController as GroupController;
 use App\Http\Controllers\Teacher\ScheduleController as ScheduleController;
 use App\Http\Controllers\Teacher\TeacherController as TeacherController;
+use App\Http\Controllers\Teacher\LibraryController as LibraryController;
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
