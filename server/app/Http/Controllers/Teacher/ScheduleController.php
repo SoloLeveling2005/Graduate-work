@@ -90,7 +90,7 @@ class ScheduleController extends Controller
             'groupId' => $class->groupId,
             'subjectId' => $class->subjectId,
             // 'subject' => $class['subject']['teacher_subject']['subject']['title'],
-            'subject' => $class->subject['teacher_subject'],
+            'subject' => $class->subject,
             'subgroup' => $subgroup,
             'number' => $class->number,
             'dayWeek' => $class->dayWeek,
