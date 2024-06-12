@@ -33,14 +33,25 @@ class CalendarController extends Controller
         // $events = CalendarEvent::where('groupId', $groupId)
         //     ->whereDate('date', today())
         //     ->get();
-        return response()->json($groups);
+        return response()->json($groups->toArray()->map(function($group) {
+            return $group['id'];
+        }));
     }
 
-    public function eventsByDate(Request $request, $groupId, $date)
+    public function eventsByDate(Request $request)
     {
+        $validated = $request->validate([
+            'groupId' => 'required|integer',
+            'date' => 'required|date',
+        ]);
+
+        $groupId = $validated['groupId'];
+        $date = $validated['date'];
+
         $events = CalendarEvent::where('groupId', $groupId)
             ->whereDate('date', $date)
             ->get();
+
         return response()->json($events);
     }
 
