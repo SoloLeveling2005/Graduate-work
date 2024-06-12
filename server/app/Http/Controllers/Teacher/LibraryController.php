@@ -42,22 +42,14 @@ class LibraryController extends Controller
     public function search(Request $request)
     {
         $validated = $request->validate([
-            'author' => 'nullable|string|max:255',
-            'class' => 'nullable|string|max:255',
-            'title' => 'nullable|string|max:255',
+            'search' => 'required|string|max:255'
         ]);
 
         $books = Book::query();
 
-        if (isset($validated['author'])) {
-            $books->orWhere('author', 'like', '%' . $validated['author'] . '%');
-        }
-        if (isset($validated['class'])) {
-            $books->orWhere('class', 'like', '%' . $validated['class'] . '%');
-        }
-        if (isset($validated['title'])) {
-            $books->orWhere('title', 'like', '%' . $validated['title'] . '%');
-        }
+        $books->orWhere('author', 'like', '%' . $validated['search'] . '%');
+        $books->orWhere('class', 'like', '%' . $validated['search'] . '%');
+        $books->orWhere('title', 'like', '%' . $validated['search'] . '%');
 
         return response()->json($books->get());
     }
