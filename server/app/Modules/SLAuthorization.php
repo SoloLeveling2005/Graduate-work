@@ -102,6 +102,10 @@ class SLAuthorizationGuard
                 'expires_at' => $expiration,
             ]);
 
+            if ($this->guard == 'admin') {
+                dd(123);
+            }
+
             RateLimiter::clear($key);
 
             return ['token' => $token, 'expires_at' => $expiration, 'status' => 200, 'user'=>$user->toArray()];
