@@ -47,24 +47,24 @@ class LibraryController extends Controller
             'title' => 'nullable|string|max:255',
         ]);
 
-        if (empty($validated['author']) && empty($validated['class']) && empty($validated['title'])) {
-            throw ValidationException::withMessages([
-                'search' => ['At least one search parameter (author, class, title) must be provided.'],
-            ]);
+        $books = Book::query();
+
+        if (isset($validated['author'])) {
+            $books->when(isset($validated['author']) ? $validated['author'] : '', function ($query, $author) {
+                return $query->where('author', 'like', '%' . $author . '%');
+            });
+        }
+        if (isset($validated['class'])) {
+            $books->orWhen(isset($validated['class']) ? $validated['class'] : '', function ($query, $class) {
+                return $query->where('class', 'like', '%' . $class . '%');
+            });
+        }
+        if (isset($validated['title'])) {
+            $books->orWhen(isset($validated['title']) ? $validated['title'] : '', function ($query, $title) {
+                return $query->where('title', 'like', '%' . $title . '%');
+            });
         }
 
-        $books = Book::query()
-            ->when($validated['author'], function ($query, $author) {
-                return $query->orWhere('author', 'like', '%' . $author . '%');
-            })
-            ->when($validated['class'], function ($query, $class) {
-                return $query->orWhere('class', 'like', '%' . $class . '%');
-            })
-            ->when($validated['title'], function ($query, $title) {
-                return $query->orWhere('title', 'like', '%' . $title . '%');
-            })
-            ->get();
-
-        return response()->json($books);
+        return response()->json($books->get());
     }
 }
