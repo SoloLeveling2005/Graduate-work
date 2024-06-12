@@ -11,7 +11,7 @@ class LibraryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'required|string|max:255|unique:books,title',
             'author' => 'required|string|max:255',
             'class' => 'required|string|max:255',
             'subject' => 'required|string|max:255',
