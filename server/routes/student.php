@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Student\Auth\StudentAuthController as StudentAuthController;
 
+use App\Http\Middleware\Student\StudentAuthMiddleware as StudentAuthMiddleware;
 use App\Http\Controllers\Student\LibraryController;
 
 /*
@@ -29,4 +30,12 @@ Route::prefix('library')->group(function() {
     Route::get('books/search', [LibraryController::class, 'search']);
     Route::get('books', [LibraryController::class, 'index']);
 
+});
+
+
+Route::middleware(StudentAuthMiddleware::class)->group(function() {
+    Route::prefix('calendar')->group(function() {
+        Route::get('events', [CalendarController::class, 'eventsByDate']);
+        Route::post('createEvent', [CalendarController::class, 'createEvent']);
+    });
 });

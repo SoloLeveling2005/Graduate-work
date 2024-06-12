@@ -16,18 +16,19 @@ class CalendarController extends Controller
         return response()->json($groups);
     }
 
-    public function eventsToday($groupId)
+    public function eventsByDate(Request $request)
     {
+        $validated = $request->validate([
+            'date' => 'required|date',
+        ]);
+
+        $date = $validated['date'];
+
+        $user = $request->user();
+        dd($user);
+
         $events = CalendarEvent::where('groupId', $groupId)
             ->whereDate('date', today())
-            ->get();
-        return response()->json($events);
-    }
-
-    public function eventsByDate($groupId, $date)
-    {
-        $events = CalendarEvent::where('groupId', $groupId)
-            ->whereDate('date', $date)
             ->get();
         return response()->json($events);
     }
