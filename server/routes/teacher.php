@@ -49,6 +49,12 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
     Route::prefix('schedule')->group(function() {
         Route::get('list', [ScheduleController::class, 'list']);
     });     
+
+    Route::prefix('library')->group(function() {
+        Route::post('books', [LibraryController::class, 'store']);
+        Route::get('books', [LibraryController::class, 'index']);
+        Route::get('books/search', [LibraryController::class, 'search']);
+    });
 });
 
 
