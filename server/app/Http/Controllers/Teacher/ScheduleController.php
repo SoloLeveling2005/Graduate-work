@@ -55,10 +55,9 @@ class ScheduleController extends Controller
             // Разделение общих занятий на подгруппы и группировка по номеру
             $processedClasses = [];
 
-            if ($scheduleClasses) {
-            dd($scheduleClasses);
-
-            }
+            dd(GroupScheduleClass::with(['subject.teacherSubject.teacher' => function($query) use ($teacher) {
+                $query->where('id', $teacher['id']);
+            }, 'subject.teacherSubject.subject'])->where('dayWeek', 1)->get());
 
             foreach ($scheduleClasses as $class) {
                 if (is_null($class->subgroup)) {
