@@ -23,7 +23,8 @@ class CalendarController extends Controller
             'date' => 'nullable|date',
         ]);
 
-        $teacherId = $request->teacher['id'];
+        $teacher = $request->user;
+        $teacherId = $teacher['id'];
 
         $date = $validated['date'] ?? today()->toDateString();
 
