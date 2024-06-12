@@ -44,7 +44,7 @@ class ScheduleController extends Controller
         $endDate = $request->input('end_date') ?: Carbon::now()->addMonth()->format('Y-m-d');
         $teacherId = $teacher['id'];
 
-        $dayScheduleList = collect(self::getDaysOfWeek($startDate, $endDate))->map(function($daySchedule) use ($teacher) {
+        $dayScheduleList = collect(self::getDaysOfWeek($startDate,$endDate))->map(function($daySchedule) use ($teacher) {
             $day = $daySchedule['day'];
             $dayWeek = $daySchedule['dayWeek'];
 
@@ -52,47 +52,46 @@ class ScheduleController extends Controller
                 $query->where('id', $teacher['id']);
             }])->where('dayWeek', $dayWeek)->get();
 
-            // Разделение общих занятий на подгруппы
-            $processedClasses = [];
-            foreach ($scheduleClasses as $class) {
-                if (is_null($class->subgroup)) {
-                    $processedClasses[] = $this->createSubgroupClass($class, 'A');
-                    $processedClasses[] = $this->createSubgroupClass($class, 'B');
-                } else {
-                    $processedClasses[] = $class;
-                }
-            }
-
-            $daySchedule['scheduleClasses'] = $processedClasses;
+            $daySchedule['scheduleClasses'] = $scheduleClasses;
 
             return $daySchedule;
         });
 
+        // // Получение расписания преподавателя за указанный период
+        // $scheduleClasses = GroupScheduleClass::whereHas('subject.teacherSubject', function ($query) use ($teacherId) {
+        //     $query->where('userTeacherId', $teacherId);
+        // })
+        // ->whereBetween('date', [$startDate, $endDate])
+        // ->with(['group', 'subject.teacherSubject.subject'])
+        // ->get();
+
+        // // Форматирование расписания в нужный формат
+        // $schedule = [];
+        // $period = CarbonPeriod::create($startDate, $endDate);
+
+        // foreach ($period as $date) {
+        //     $dailySchedule = $scheduleClasses->filter(function ($class) use ($date) {
+        //         return Carbon::parse($class->date)->format('Y-m-d') == $date->format('Y-m-d');
+        //     });
+
+        //     $formattedDailySchedule = $dailySchedule->map(function ($class) {
+        //         return [
+        //             'subject' => $class->subject->teacherSubject->subject,
+        //             'group' => $class->group->title,
+        //             'subgroup' => $class->subgroup,
+        //             'number' => $class->number,
+        //         ];
+        //     });
+
+        //     $schedule[] = [
+        //         'day_of_week' => $date->format('l'),
+        //         'date' => $date->format('Y-m-d'),
+        //         'classes' => $formattedDailySchedule->values()->all(),
+        //     ];
+        // }
+
         return response()->json($dayScheduleList);
     }
-
-    /**
-     * Создает копию класса для подгруппы.
-     *
-     * @param  GroupScheduleClass  $class
-     * @param  string  $subgroup
-     * @return GroupScheduleClass
-     */
-    private function createSubgroupClass($class, $subgroup)
-    {
-        return (object) [
-            'id' => $class->id,
-            'groupId' => $class->groupId,
-            'subjectId' => $class->subjectId,
-            'subgroup' => $subgroup,
-            'number' => $class->number,
-            'dayWeek' => $class->dayWeek,
-            'created_at' => $class->created_at,
-            'updated_at' => $class->updated_at,
-            'subject' => $class->subject
-        ];
-    }
-
 
     public function addRequest(Request $request, $groupId) {
          $request->validate([
