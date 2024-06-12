@@ -54,7 +54,7 @@ class ScheduleController extends Controller
 
             // Разделение общих занятий на подгруппы и группировка по номеру
             $processedClasses = [];
-            // dd($scheduleClasses);
+            dd($scheduleClasses);
 
             foreach ($scheduleClasses as $class) {
                 if (is_null($class->subgroup)) {
