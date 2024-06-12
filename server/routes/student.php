@@ -25,15 +25,16 @@ Route::post('signin', [StudentAuthController::class, 'signin']);
 Route::post('signout', [StudentAuthController::class, 'signout']);
 
 
-Route::prefix('library')->group(function() {
 
-    Route::get('books/search', [LibraryController::class, 'search']);
-    Route::get('books', [LibraryController::class, 'index']);
-
-});
 
 
 Route::middleware(StudentAuthMiddleware::class)->group(function() {
+    Route::prefix('library')->group(function() {
+
+        Route::get('books/search', [LibraryController::class, 'search']);
+        Route::get('books', [LibraryController::class, 'index']);
+
+    });
     Route::prefix('calendar')->group(function() {
         Route::get('events', [CalendarController::class, 'eventsByDate']);
         Route::post('createEvent', [CalendarController::class, 'createEvent']);
