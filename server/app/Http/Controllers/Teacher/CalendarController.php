@@ -20,11 +20,11 @@ class CalendarController extends Controller
     public function eventsByDate(Request $request)
     {
         $validated = $request->validate([
-            'teacherId' => 'required|integer',
             'date' => 'nullable|date',
         ]);
 
-        $teacherId = $validated['teacherId'];
+        $teacherId = $request->teacher['id'];
+
         $date = $validated['date'] ?? today()->toDateString();
 
         $groups = DB::table('groups')
