@@ -59,7 +59,7 @@ class ScheduleController extends Controller
                     $processedClasses[] = $this->createSubgroupClass($class, 'A');
                     $processedClasses[] = $this->createSubgroupClass($class, 'B');
                 } else {
-                    $processedClasses[] = $class['id'];
+                    $processedClasses[] = $class;
                 }
             }
 
