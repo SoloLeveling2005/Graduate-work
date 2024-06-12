@@ -244,6 +244,15 @@ class DatabaseSeeder extends Seeder
                     'teacherSubjectId' => $teacherSubjectId,
                     'created_at' => now()
                 ]);
+
+                $group_subject = DB::table('group_subjects')->where([
+                    'groupId' => $groupId,
+                    'teacherSubjectId' => $teacherSubjectId
+                ])->first();
+
+                DB::table('classrooms')->insert([
+                    'groupSubjectId' => $group_subject['id']
+                ]);
             }
         }
         

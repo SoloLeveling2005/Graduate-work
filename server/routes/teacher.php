@@ -22,13 +22,13 @@ use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 |
 */
 
-// TODO - Aвторизации преподавателя. Выдаем токен.
+// Aвторизации преподавателя. Выдаем токен.
 Route::post('signin', [TeacherAuthController::class, 'signin']);
 
-// TODO - Выход преподавателя. Удаляем токен.
+// Выход преподавателя. Удаляем токен.
 Route::post('signout', [TeacherAuthController::class, 'signout']);
 
-// TODO - Список групп.
+// Список групп.
 Route::middleware(TeacherAuthMiddleware::class)->group(function() {
     Route::prefix('group')->group(function() {
         Route::get('list', [GroupController::class, 'list']);
@@ -41,7 +41,7 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
 
             Route::prefix('schedule')->group(function() {
-                // TODO - Создание замены на определнный день и пару
+                // Создание замены на определнный день и пару
                 Route::post('addRequest', [ScheduleController::class ,'addRequest']);
             }); 
             
@@ -62,6 +62,8 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
         Route::get('events', [CalendarController::class, 'eventsByDate']);
         Route::post('createEvent', [CalendarController::class, 'createEvent']);
     });
+
+    // TODO - Список классрумов
 });
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminPanel;
 use App\Http\Controllers\Controller;
 use App\Models\GroupSubject;
 use App\Models\UserTeacherSubject;
+use App\Models\Classroom as ClassroomModel;
 use Illuminate\Http\Request;
 
 class GroupSubjectController extends Controller
@@ -82,6 +83,11 @@ class GroupSubjectController extends Controller
         $groupSubject = GroupSubject::create([
             'groupId' => $groupId,
             'teacherSubjectId' => $request->input('teacherSubjectId'),
+        ]);
+
+        // Создаем классрум
+        ClassroomModel::create([
+            'groupSubjectId' => $groupSubject->id
         ]);
 
         return response()->json(['status' => 201, 'groupSubject' => $groupSubject], 201);
