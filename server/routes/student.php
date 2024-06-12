@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Student\Auth\StudentAuthController as StudentAuthController;
 
+use App\Http\Controllers\Student\LibraryController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,4 +24,9 @@ Route::post('signin', [StudentAuthController::class, 'signin']);
 Route::post('signout', [StudentAuthController::class, 'signout']);
 
 
+Route::prefix('library')->group(function() {
 
+    Route::post('books', [LibraryController::class, 'store']);
+    Route::get('books', [LibraryController::class, 'index']);
+
+});
