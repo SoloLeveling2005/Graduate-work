@@ -25,7 +25,7 @@ class CalendarController extends Controller
         $date = $validated['date'];
 
         $user = $request->user;
-        dd($user);
+        $groupId = $user['groupId'];
 
         $events = CalendarEvent::where('groupId', $groupId)
             ->whereDate('date', today())
