@@ -33,7 +33,7 @@ class CalendarController extends Controller
         // $events = CalendarEvent::where('groupId', $groupId)
         //     ->whereDate('date', today())
         //     ->get();
-        return response()->json($groups->toArray()->map(function($group) {
+        return response()->json($groups->map(function($group) {
             return $group['id'];
         }));
     }
