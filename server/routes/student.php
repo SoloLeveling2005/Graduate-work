@@ -26,7 +26,7 @@ Route::post('signout', [StudentAuthController::class, 'signout']);
 
 Route::prefix('library')->group(function() {
 
-    Route::post('books', [LibraryController::class, 'store']);
+    Route::get('books/search', [LibraryController::class, 'search']);
     Route::get('books', [LibraryController::class, 'index']);
 
 });
