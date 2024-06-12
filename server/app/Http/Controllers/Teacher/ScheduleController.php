@@ -92,7 +92,7 @@ class ScheduleController extends Controller
             'id' => $class->id,
             'groupId' => $class->groupId,
             'subjectId' => $class->subjectId,
-            'subject' => (isset($class->subject['teacher_subject'])) ? $class->subject['teacher_subject'] : null,
+            'subject' => $class->subject->teacher_subject->subject->title,
             'subgroup' => $subgroup,
             'number' => $class->number,
             'dayWeek' => $class->dayWeek,
