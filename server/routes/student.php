@@ -32,7 +32,7 @@ Route::middleware(StudentAuthMiddleware::class)->group(function() {
 
     Route::get('me', [MeController::class, 'me']);
 
-    Route::prefix('library')->group(function() {
+    Route::prefix('mainPage')->group(function() {
         Route::get('getCurrentLesson', [MainPageController::class, 'getCurrentLesson']);
         Route::get('getTodayShedule', [MainPageController::class, 'getTodayShedule']);
     });
