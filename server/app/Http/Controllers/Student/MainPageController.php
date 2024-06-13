@@ -16,7 +16,7 @@ class MainPageController extends Controller
             '1.5' => ['10:00', '10:10'],
             '2' => ['10:10', '11:40'],
             '2.5' => ['11:40', '12:10'],
-            '3' => ['12:10', '13:40'],
+            '3' => ['12:10', '23:59'],
             '3.5' => ['13:40', '13:50'],
             '4' => ['13:50', '23:59'],
             '4.5' => ['15:20', '15:40'],
@@ -56,7 +56,7 @@ class MainPageController extends Controller
         $currentDateTime = Carbon::now('Asia/Almaty');
         $currentClass = self::getCurrentClass($currentDateTime);
 
-        $desiredObject = $schedule->firstWhere('number', 4);
+        $desiredObject = $schedule->firstWhere('number', $currentClass);
 
 
         return response()->json($schedule, 200);
