@@ -63,7 +63,13 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
         Route::post('createEvent', [CalendarController::class, 'createEvent']);
     });
 
-    // TODO - Список классрумов
+
+    Route::prefix('classroom')->group(function() {
+        // TODO - Список классрумов
+        Route::get('list', [CalendarController::class, 'indexForTeachers']);
+    });
+
+
 });
 
 

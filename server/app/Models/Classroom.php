@@ -10,4 +10,14 @@ class Classroom extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function groupSubject()
+    {
+        return $this->hasMany(GroupSubject::class);
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(Material::class);
+    }
 }
