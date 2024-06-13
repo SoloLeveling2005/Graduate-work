@@ -70,7 +70,7 @@ class GroupController extends Controller
                 "updated_at"=> $item->updated_at,
                 "subject"=> $item->subject->teacher_subject->subject->title,
                 "auditorium"=> $item->subject->teacher_subject->teacher->auditorium->number
-            ]
+            ];
         })->groupBy('dayWeek');
         $students = $group->students;
 
