@@ -49,7 +49,18 @@ class MainPageController extends Controller
 
         return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher.auditorium'])->get()->filter(function($item) use ($teacherId) {
             return $item->subject->teacherSubject->userTeacherId == $teacherId;
-        })->sortBy('number')->groupBy('dayWeek'), 200);
+        })->sortBy('number')->map(function($item) {
+            return [
+                "id" => $item->id,
+                "groupId" => $item->groupId,
+                "subjectId" => $item->subjectId,
+                "subgroup" => $item->subgroup,
+                "number" => $item->number,
+                "dayWeek" => $item->dayWeek,
+                "subject" => $item->subject->teacherSubject->subject->title,
+                "auditorium" => $item->subject->teacherSubject->teacher->auditorium->number,
+            ];
+        })->groupBy('dayWeek'), 200);
     }
 
     public function getCurrentLesson(Request $request) {
