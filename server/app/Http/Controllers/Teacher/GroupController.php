@@ -68,7 +68,7 @@ class GroupController extends Controller
                 "dayWeek"=> $item->dayWeek,
                 "created_at"=> $item->created_at,
                 "updated_at"=> $item->updated_at,
-                "subject"=> $item->subject,
+                "subject"=> $item->subject['teacher_subject'],
                 // "auditorium"=> $item->subject->teacher_subject->teacher->auditorium->number
             ];
         })->groupBy('dayWeek');
