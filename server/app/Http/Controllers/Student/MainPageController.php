@@ -50,7 +50,7 @@ class MainPageController extends Controller
 
         $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek, $subgroup) {
             return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
-        })->sortBy('number');
+        })->sortBy('number')->values()->all();
 
         return response()->json($schedule, 200);
     }
