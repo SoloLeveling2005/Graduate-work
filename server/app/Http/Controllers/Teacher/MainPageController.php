@@ -36,7 +36,7 @@ class MainPageController extends Controller
         return 'Отдых';
     }
 
-    public function getTodaySchedule(Request $request) {
+    public function getTodayShedule(Request $request) {
         $teacherId = $request->user()['id'];
 
         // Получение текущей даты и времени в Астане
