@@ -38,7 +38,7 @@ class MainPageController extends Controller
     public function getTodayShedule(Request $request) {
         $teacherId = ($request->user)['id'];
 
-        $teacher = UserTeacher::with(['groups.schedules'])->find($teacherId);
+        $teacher = UserTeacher::with(['scheduleClasses'])->find($teacherId);
 
         // Получение текущей даты и времени в Астане
         $currentDateTime = Carbon::now('Asia/Almaty');
