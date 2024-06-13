@@ -47,12 +47,8 @@ class MainPageController extends Controller
         // Получение текущего дня недели (от 1 до 7)
         $dayOfWeek = $currentDateTime->dayOfWeekIso;
 
-        // $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek, $subgroup) {
-        //     return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
-        // })->sortBy('number')->values()->all();
-
         return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher'])->get()->filter(function($item) use ($teacherId) {
             return $item->subject->teacherSubject->userTeacherId == $teacherId;
-        })->groupBy('dayWeek'), 200);
+        })->sortBy('number')->groupBy('dayWeek'), 200);
     }
 }
