@@ -9,10 +9,10 @@ use App\Http\Controllers\Teacher\TeacherController as TeacherController;
 use App\Http\Controllers\Teacher\LibraryController;
 use App\Http\Controllers\Teacher\CalendarController;
 use App\Http\Controllers\Classroom\ClassroomController;
+use App\Http\Controllers\Teacher\MeController;
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
-use App\Http\Models\UserTeacher;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,14 +34,7 @@ Route::post('signout', [TeacherAuthController::class, 'signout']);
 // Список групп.
 Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
-    Route::get('me', function(Request $request) {
-        dd($request);
-        $teacherId = ($request->user)['id'];
-
-        $teacher = UserTeacher::with(['auditorium', 'groups', 'teacherSubject', 'scheduleClasses'])->find($teacherId);
-
-        return response()->json($teacher, 200);
-    });
+    Route::get('me', [MeController::class, 'me']);
 
     Route::prefix('group')->group(function() {
         Route::get('list', [GroupController::class, 'list']);
