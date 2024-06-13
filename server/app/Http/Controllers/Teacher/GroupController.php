@@ -43,7 +43,7 @@ class GroupController extends Controller
         $teacher = $request->user;
         $teacherId = $teacher['id'];
 
-        $group = Group::wth(['subjects','students','schedules'])->find($groupId);
+        $group = Group::with(['subjects','students','schedules'])->find($groupId);
 
         if (!$group) {
             return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
@@ -60,6 +60,6 @@ class GroupController extends Controller
             'curator' => $group->curator,
         ];
 
-        return response()->json($info, 200);
+        return response()->json($group, 200);
     }
 }
