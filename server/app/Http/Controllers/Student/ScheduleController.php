@@ -14,6 +14,7 @@ class ScheduleController extends Controller
     {
         $user = $request->user;
         $groupId = $user['groupId'];
+        $subgroup = $user['subgroup'];
 
         $validated = $request->validate([
             'dayWeek' => 'integer|min:1|max:6',
@@ -49,6 +50,8 @@ class ScheduleController extends Controller
                         'updated_at' => $item->updated_at,
                         'auditorium' => $item->subject->teacherSubject->teacher->auditorium->number ?? null,
                     ];
+                })->filter(function($item) use ($subgroup) {
+                    return $item->subgroup == null ||  $item->subgroup == $subgroup; 
                 });
             }
         }
