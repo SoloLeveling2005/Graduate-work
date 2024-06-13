@@ -36,6 +36,45 @@ class MainPageController extends Controller
         return 'Отдых';
     }
 
+    public function getCurrentLessonTestVersion(Request $request) {
+        return response()->json([
+            "id"=> 8,
+            "groupId"=> 1,
+            "subjectId"=> 1,
+            "subgroup"=> null,
+            "number"=> 3,
+            "dayWeek"=> 4,
+            "created_at"=> "2024-06-13T18:25:06.000000Z",
+            "updated_at"=> "2024-06-13T18:25:06.000000Z",
+            "subject"=> [
+                "id"=> 1,
+                "groupId"=> 1,
+                "teacherSubjectId"=> 1,
+                "created_at"=> "2024-06-13T16:25:48.000000Z",
+                "updated_at"=> null,
+                "teacher_subject"=> [
+                    "id"=> 1,
+                    "userTeacherId"=> 1,
+                    "subjectId"=> 7,
+                    "created_at"=> "2024-06-13T16:25:48.000000Z",
+                    "updated_at"=> null,
+                    "teacher"=> [
+                        "id"=> 1,
+                        "login"=> "popovDenisValentinovich",
+                        "fio"=> "Попов Денис Валентинович",
+                        "auditoriaId"=> 1,
+                        "created_at"=> "2024-06-13T16:25:47.000000Z",
+                        "updated_at"=> null
+                    ],
+                    "subject"=> [
+                        "id"=> 7,
+                        "title"=> "Основы Frontend"
+                    ]
+                ]
+            ]
+        ],200);
+    }
+
     public function getCurrentLesson(Request $request) {
         $studentId = ($request->user)['id'];
 
