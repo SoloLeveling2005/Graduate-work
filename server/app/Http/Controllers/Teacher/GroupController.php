@@ -43,7 +43,7 @@ class GroupController extends Controller
         $teacher = $request->user;
         $teacherId = $teacher['id'];
 
-        $group = Group::find($groupId);
+        $group = Group::wth(['subjects','students','schedules'])->find($groupId);
 
         if (!$group) {
             return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
