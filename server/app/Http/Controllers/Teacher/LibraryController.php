@@ -15,7 +15,7 @@ class LibraryController extends Controller
             'author' => 'required|string|max:255',
             'class' => 'required|string|max:255',
             'subject' => 'required|string|max:255',
-            'file' => 'required|file|mimes:pdf,doc,docx,txt|max:204800',
+            'file' => 'required|file|mimes:pdf,doc,docx,txt',
         ]);
 
         // Сохранение файла книги в папку library
