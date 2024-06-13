@@ -36,10 +36,8 @@ class MainPageController extends Controller
         return 'Отдых';
     }
 
-    public function getTodayShedule(Request $request) {
-        $teacherId = ($request->user)['id'];
-
-        $teacher = UserTeacher::find($teacherId);
+    public function getTodaySchedule(Request $request) {
+        $teacherId = $request->user()['id'];
 
         // Получение текущей даты и времени в Астане
         $currentDateTime = Carbon::now('Asia/Almaty');
@@ -47,8 +45,26 @@ class MainPageController extends Controller
         // Получение текущего дня недели (от 1 до 7)
         $dayOfWeek = $currentDateTime->dayOfWeekIso;
 
-        return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher.auditorium'])->get()->filter(function($item) use ($teacherId) {
-            return $item->subject->teacherSubject->userTeacherId == $teacherId;
-        })->sortBy('number')->groupBy('dayWeek'), 200);
+        $schedule = GroupScheduleClass::with(['subject.teacherSubject.subject', 'subject.teacherSubject.teacher.auditorium'])
+            ->where('dayWeek', $dayOfWeek)
+            ->get()
+            ->filter(function($item) use ($teacherId) {
+                return $item->subject->teacherSubject->userTeacherId == $teacherId;
+            })
+            ->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'groupId' => $item->groupId,
+                    'subgroup' => $item->subgroup,
+                    'number' => $item->number,
+                    'dayWeek' => $item->dayWeek,
+                    'subjectTitle' => $item->subject->teacherSubject->subject->title,
+                    'auditorium' => $item->subject->teacherSubject->teacher->auditorium->number
+                ];
+            })
+            ->sortBy('number')
+            ->values();
+
+        return response()->json($schedule, 200);
     }
 }

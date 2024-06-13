@@ -101,8 +101,11 @@ class MainPageController extends Controller
         return response()->json($desiredObject ?? (str_contains($currentClass, '.5') ? ['status' => "перемена"] : ['status' => 'отдых']), 200);
     }
 
-    public function getTodaySchedule(Request $request) {
-        $teacherId = $request->user()['id'];
+    public function getTodayShedule(Request $request) {
+        $studentId = ($request->user)['id'];
+
+        $student = UserStudent::with(['group.schedules'])->find($studentId);
+        $subgroup = $student->subgroup;
 
         // Получение текущей даты и времени в Астане
         $currentDateTime = Carbon::now('Asia/Almaty');
@@ -110,26 +113,9 @@ class MainPageController extends Controller
         // Получение текущего дня недели (от 1 до 7)
         $dayOfWeek = $currentDateTime->dayOfWeekIso;
 
-        // Получение расписания для текущего преподавателя и дня недели
-        $schedule = GroupScheduleClass::with(['subject.teacherSubject.subject', 'subject.teacherSubject.teacher.auditorium'])
-            ->where('dayWeek', $dayOfWeek)
-            ->get()
-            ->filter(function($item) use ($teacherId) {
-                return $item->subject->teacherSubject->userTeacherId == $teacherId;
-            })
-            ->map(function($item) {
-                return [
-                    'id' => $item->id,
-                    'groupId' => $item->groupId,
-                    'subgroup' => $item->subgroup,
-                    'number' => $item->number,
-                    'dayWeek' => $item->dayWeek,
-                    'subjectTitle' => $item->subject->teacherSubject->subject->title,
-                    'auditorium' => $item->subject->teacherSubject->teacher->auditorium->number,
-                ];
-            })
-            ->sortBy('number')
-            ->values(); // Преобразование коллекции в массив
+        $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek, $subgroup) {
+            return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
+        })->sortBy('number')->values()->all();
 
         return response()->json($schedule, 200);
     }
