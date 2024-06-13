@@ -43,11 +43,14 @@ class GroupController extends Controller
         $teacher = $request->user;
         $teacherId = $teacher['id'];
 
-        $group = Group::with(['subjects.teacherSubject.teacher'])->get();
+        // Получаем все группы, у которых есть предметы, связанные с текущим преподавателем
+        $groups = Group::whereHas('subjects.teacherSubject', function($query) use ($teacherId) {
+            $query->where('userTeacherId', $teacherId);
+        })->with(['subjects.teacherSubject.teacher'])->get();
 
-        return response()->json($group, 200);
-
+        return response()->json($groups, 200);
     }
+
 
     public function info(Request $request, $groupId) {
         $teacher = $request->user;
