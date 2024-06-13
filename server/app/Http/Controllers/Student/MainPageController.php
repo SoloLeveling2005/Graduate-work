@@ -51,7 +51,7 @@ class MainPageController extends Controller
             return $item['dayWeek'] == $dayOfWeek;
         });
 
-        return response()->json($schedule, 200);
+        return response()->json($student, 200);
     }
 
     public function getTodayShedule(Request $request) {
