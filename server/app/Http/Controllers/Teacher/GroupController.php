@@ -39,6 +39,16 @@ class GroupController extends Controller
         dd($data);
     }
 
+    public function myGroups(Reques $request) {
+        $teacher = $request->user;
+        $teacherId = $teacher['id'];
+
+        $group = Group::with(['subjects.teacherSubject.teacher'])->get();
+
+        return response()->json($group, 200);
+
+    }
+
     public function info(Request $request, $groupId) {
         $teacher = $request->user;
         $teacherId = $teacher['id'];

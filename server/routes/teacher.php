@@ -39,6 +39,9 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
     Route::prefix('group')->group(function() {
         Route::get('list', [GroupController::class, 'list']);
         Route::get('tutorList', [GroupController::class, 'tutorList']);
+        Route::get('myGroups', [GroupController::class, 'myGroups']);
+
+        
 
         Route::prefix('{groupId}')->group(function () {
 
