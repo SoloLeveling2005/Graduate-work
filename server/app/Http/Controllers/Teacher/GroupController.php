@@ -74,6 +74,15 @@ class GroupController extends Controller
         })->groupBy('dayWeek');
         $students = $group->students;
 
-        return response()->json($group, 200);
+        $groupInfo = [
+            "id" => $group->id,
+            "title" => $group->title,
+            "color" => $group->color,
+            "subjects" => $subjects,
+            "schedules" => $schedules,
+            "students" => $students
+        ];
+
+        return response()->json($groupInfo, 200);
     }
 }
