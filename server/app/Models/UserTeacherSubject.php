@@ -16,9 +16,9 @@ class UserTeacherSubject extends Model
         return $this->belongsTo(UserTeacher::class, 'userTeacherId');
     }
 
-    public function subjects()
+    public function subject()
     {
-        return $this->hasMany(Subject::class, 'subjectId');
+        return $this->belongsTo(Subject::class, 'subjectId');
     }
 
     public function groupSubjects()
