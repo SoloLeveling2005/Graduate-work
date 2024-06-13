@@ -57,7 +57,7 @@ class CalendarController extends Controller
         $endDate = $request->input('end_date', Carbon::now()->endOfMonth()->toDateString());
 
         $teacher = $request->user();
-        $teacherId = $teacher->id;
+        $teacherId = $teacher['id'];
 
         $groups = DB::table('groups')
             ->distinct()
