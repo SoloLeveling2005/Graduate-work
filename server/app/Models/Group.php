@@ -33,6 +33,6 @@ class Group extends Model
 
     public function schedules()
     {
-        return $this->hasMany(GroupSchedule::class, 'groupId');
+        return $this->hasMany(GroupScheduleClass::class, 'groupId');
     }
 }
