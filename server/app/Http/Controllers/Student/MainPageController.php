@@ -41,7 +41,17 @@ class MainPageController extends Controller
 
         $student = UserStudent::with(['group.schedules'])->find($studentId);
 
-        return response()->json($student, 200);
+        // Получение текущей даты и времени в Астане
+        $currentDateTime = Carbon::now('Asia/Almaty');
+
+        // Получение текущего дня недели (от 1 до 7)
+        $dayOfWeek = $currentDateTime->dayOfWeekIso;
+
+        $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek) {
+            return $item['number'] == $dayOfWeek;
+        });
+
+        return response()->json($schedule, 200);
     }
 
     public function getTodayShedule(Request $request) {
