@@ -39,7 +39,7 @@ class MainPageController extends Controller
     public function getCurrentLesson(Request $request) {
         $studentId = ($request->user)['id'];
 
-        $student = UserStudent::with(['group'])->find($studentId);
+        $student = UserStudent::with(['group.schedules'])->find($studentId);
 
         return response()->json($student, 200);
     }
