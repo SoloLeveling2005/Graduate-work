@@ -38,7 +38,19 @@ class ScheduleController extends Controller
                 ->get();
             
             foreach ([1,2,3,4,5,6,7] as $dayWeek) {
-                $dates[] = GroupScheduleClass::with(['subject.teacherSubject.teacher.auditorium'])->where('groupId', $groupId)->where('dayWeek', $dayWeek)->get();
+                $dates[] = GroupScheduleClass::with(['subject.teacherSubject.teacher.auditorium'])->where('groupId', $groupId)->where('dayWeek', $dayWeek)->get()->map(function ($item) {
+                    return [
+                        'id' => $item->id,
+                        'groupId' => $item->groupId,
+                        'subjectId' => $item->subjectId,
+                        'subgroup' => $item->subgroup,
+                        'number' => $item->number,
+                        'dayWeek' => $item->dayWeek,
+                        'created_at' => $item->created_at,
+                        'updated_at' => $item->updated_at,
+                        'auditorium' => $item->subject->teacherSubject->teacher->auditorium->number ?? null,
+                    ];
+                });
             }
         }
 
