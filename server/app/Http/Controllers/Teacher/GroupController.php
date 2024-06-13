@@ -56,7 +56,9 @@ class GroupController extends Controller
         $subjects = ($group->subjects)->filter(function($item) use ($teacherId) {
             return $item->teacherSubject->userTeacherId == $teacherId;
         });
-        $schedules = $group->schedules;
+        $schedules = $group->schedules->filter(function($item) use ($teacherId) {
+            return $item->subject->teacherSubject->userTeacherId == $teacherId;
+        });;
         $students = $group->students;
 
         return response()->json($schedules, 200);
