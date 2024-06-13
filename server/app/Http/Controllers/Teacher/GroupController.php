@@ -43,7 +43,7 @@ class GroupController extends Controller
         $teacher = $request->user;
         $teacherId = $teacher['id'];
 
-        $group = Group::with(['subjects','students','schedules'])->find($groupId);
+        $group = Group::with(['subjects','students','schedules.subject.teacherSubject'])->find($groupId);
 
         if (!$group) {
             return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
@@ -52,13 +52,6 @@ class GroupController extends Controller
         // TODO - Какие предметы ведет в группе этот препод
         // TODO - Какое расписание на неделю у этого препода в этой группе
         // TODO - Список группы
-
-        $info = [
-            'id' => $group->id,
-            'title' => $group->title,
-            'specialization' => $group->department,
-            'curator' => $group->curator,
-        ];
 
         return response()->json($group, 200);
     }
