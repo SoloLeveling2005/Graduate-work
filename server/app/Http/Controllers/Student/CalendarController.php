@@ -54,7 +54,7 @@ class CalendarController extends Controller
 
         $student = $request->user;
         $studentId = $student['id'];
-        $groupId = $user['groupId'];
+        $groupId = $student['groupId'];
 
         $events = CalendarEvent::where('groupId', $groupId)
             ->whereBetween('date', [$startDate, $endDate])
