@@ -52,13 +52,28 @@ class MainPageController extends Controller
             return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
         })->sortBy('number')->values()->all();
 
-        return response()->json($schedule, 200);
+        $currentDateTime = Carbon::now('Asia/Almaty');
+        $currentClass = self::getCurrentClass($currentDateTime);
+
+        return response()->json($currentClass, 200);
     }
 
     public function getTodayShedule(Request $request) {
-        $student = $request->user;
-        $studentId = $student['id'];
+        $studentId = ($request->user)['id'];
 
-        
+        $student = UserStudent::with(['group.schedules'])->find($studentId);
+        $subgroup = $student->subgroup;
+
+        // Получение текущей даты и времени в Астане
+        $currentDateTime = Carbon::now('Asia/Almaty');
+
+        // Получение текущего дня недели (от 1 до 7)
+        $dayOfWeek = $currentDateTime->dayOfWeekIso;
+
+        $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek, $subgroup) {
+            return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
+        })->sortBy('number')->values()->all();
+
+        return response()->json($schedule, 200);
     }
 }
