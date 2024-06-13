@@ -11,7 +11,7 @@ class GroupSubject extends Model
 
     protected $fillable = ['groupId', 'teacherSubjectId'];
 
-    public function group()
+    public function groups()
     {
         return $this->belongsTo(Group::class, 'groupId');
     }
