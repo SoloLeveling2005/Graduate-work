@@ -42,6 +42,7 @@ class UserController extends Controller
             return [
                 'id' => $teacher->id,
                 'fio' => $teacher->fio,
+                'login' => $teacher->login,
                 'role' => 'Teacher',
             ];
         });
@@ -56,6 +57,7 @@ class UserController extends Controller
             return [
                 'id' => $student->id,
                 'fio' => $student->fio,
+                'login' => $student->login,
                 'role' => 'Student',
             ];
         });
