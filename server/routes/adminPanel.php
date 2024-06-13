@@ -30,10 +30,10 @@ use App\Http\Middleware\AdminPanel\ScheduleCoordinatorAdminMiddleware;
     // Выход админа. Удаляем токен.
     Route::post('signout', [AdminAuthController::class, 'signout']);
 
-    Route::get('me', [MeController::class, 'me']);
-
     // Middleware аутентификации админа (тут же получение и встройка в $request информация об админе)
     Route::middleware(AdminAuthMiddleware::class)->group(function () {
+
+        Route::get('me', [MeController::class, 'me']);
 
         // Получение списка предметов.
         Route::get('subjects/getList', [SubjectController::class, 'getList']);
