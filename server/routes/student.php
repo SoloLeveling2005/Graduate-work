@@ -7,6 +7,8 @@ use App\Http\Controllers\Student\Auth\StudentAuthController as StudentAuthContro
 use App\Http\Middleware\Student\StudentAuthMiddleware as StudentAuthMiddleware;
 use App\Http\Controllers\Student\LibraryController;
 use App\Http\Controllers\Student\CalendarController;
+use App\Http\Controllers\Student\MeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,9 @@ Route::post('signout', [StudentAuthController::class, 'signout']);
 
 
 Route::middleware(StudentAuthMiddleware::class)->group(function() {
+
+    Route::get('me', [MeController::class, 'me']);
+    
     Route::prefix('library')->group(function() {
 
         Route::get('books/search', [LibraryController::class, 'search']);
