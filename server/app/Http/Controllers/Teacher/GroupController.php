@@ -53,7 +53,9 @@ class GroupController extends Controller
         // TODO - Какое расписание на неделю у этого препода в этой группе
         // TODO - Список группы
 
-        $subjects = $group->subjects;
+        $subjects = ($group->subjects)->filter(function($item) use ($teacherId) {
+            return $item->teacher_subject->userTeacherId == $teacherId;
+        });
         $students = $group->students;
         $schedules = $group->schedules;
 
