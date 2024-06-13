@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
+use App\Models\UserStudent;
+
 class MainPageController extends Controller
 {
     public function getCurrentClass($time) {
