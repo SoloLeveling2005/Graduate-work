@@ -39,7 +39,7 @@ class GroupController extends Controller
         dd($data);
     }
 
-    public function myGroups(Reques $request) {
+    public function myGroups(Request $request) {
         $teacher = $request->user;
         $teacherId = $teacher['id'];
 
