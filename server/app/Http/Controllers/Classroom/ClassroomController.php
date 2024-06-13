@@ -16,7 +16,7 @@ class ClassroomController extends Controller
         $classrooms = ClassroomModel::with(['groupSubject.teacherSubject.teacher','groupSubject.group', 'groupSubject.teacherSubject.subject'])->whereHas('groupSubject.teacherSubject.teacher', function($query) use ($teacherId) {
             $query->where('id', $teacherId);
         })->get();
-        return response()->json($classrooms);
+        return response()->json(['classrooms'=> $classrooms]);
     }
 
     public function indexForStudents(Request $request)
