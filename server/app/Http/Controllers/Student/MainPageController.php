@@ -50,12 +50,16 @@ class MainPageController extends Controller
 
         $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek, $subgroup) {
             return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
-        })->sortBy('number')->values()->all();
+        })->sortBy('number')->values();
+
 
         $currentDateTime = Carbon::now('Asia/Almaty');
         $currentClass = self::getCurrentClass($currentDateTime);
 
-        return response()->json($currentClass, 200);
+        $desiredObject = $schedule->firstWhere('number', 4);
+
+
+        return response()->json($desiredObject, 200);
     }
 
     public function getTodayShedule(Request $request) {
