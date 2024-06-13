@@ -59,7 +59,7 @@ class MainPageController extends Controller
         $desiredObject = $schedule->firstWhere('number', 4);
 
 
-        return response()->json($desiredObject, 200);
+        return response()->json($schedule, 200);
     }
 
     public function getTodayShedule(Request $request) {
