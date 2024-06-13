@@ -52,7 +52,7 @@ class MainPageController extends Controller
             return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
         });
 
-        return response()->json($student, 200);
+        return response()->json($schedule, 200);
     }
 
     public function getTodayShedule(Request $request) {
