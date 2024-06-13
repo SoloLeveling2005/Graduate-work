@@ -21,15 +21,11 @@ use App\Http\Controllers\Student\MeController;
 |
 */
 
-// TODO - Aвторизации cтудента. Выдаем токен.
+// Aвторизации cтудента. Выдаем токен.  
 Route::post('signin', [StudentAuthController::class, 'signin']);
 
-// TODO - Выход cтудента. Удаляем токен.
+// Выход cтудента. Удаляем токен.
 Route::post('signout', [StudentAuthController::class, 'signout']);
-
-
-
-
 
 Route::middleware(StudentAuthMiddleware::class)->group(function() {
 

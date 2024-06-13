@@ -55,7 +55,7 @@ class StudentController extends Controller
         $login = self::toLogin($fio);
         $password = Hash::make('123456780');
 
-        $studentExists = UserTeacher::where(['login'=>$login])->exists();
+        $studentExists = UserStudent::where(['login'=>$login])->exists();
 
         if ($studentExists) {
             return response()->json(['error' => 'HTTP 409 Conflict', 'status'=>409], 409);
