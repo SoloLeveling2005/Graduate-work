@@ -13,6 +13,8 @@ class ClassroomController extends Controller
         $teacher = $request->user;
         $teacherId = $teacher['id'];
 
+        dd($teacherId);
+
         $classrooms = ClassroomModel::whereHas('groupSubject.teacherSubject.teacher', function($query) {
             $query->where('id', $teacherId);
         })->get();
