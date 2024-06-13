@@ -12,6 +12,8 @@ use App\Http\Controllers\Classroom\ClassroomController;
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
+use App\Http\Models\UserTeacher;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,6 +33,15 @@ Route::post('signout', [TeacherAuthController::class, 'signout']);
 
 // Список групп.
 Route::middleware(TeacherAuthMiddleware::class)->group(function() {
+
+    Route::get('me', function(Request $request) {
+        $teacherId = ($request->teacher)['id'];
+
+        $teacher = UserTeacher::with(['auditorium', 'groups', 'teacherSubject', 'scheduleClasses'])->find($teacherId);
+
+        return response()->json($teacher, 200);
+    });
+
     Route::prefix('group')->group(function() {
         Route::get('list', [GroupController::class, 'list']);
         Route::get('tutorList', [GroupController::class, 'tutorList']);
