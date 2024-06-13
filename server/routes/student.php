@@ -34,6 +34,7 @@ Route::middleware(StudentAuthMiddleware::class)->group(function() {
 
     Route::prefix('library')->group(function() {
         Route::get('getCurrentLesson', [MainPageController::class, 'getCurrentLesson']);
+        Route::get('getTodayShedule', [MainPageController::class, 'getTodayShedule']);
     });
 
     
