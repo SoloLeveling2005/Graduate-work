@@ -11,7 +11,7 @@ class MeController extends Controller
     public function me(Request $request) {
         $teacherId = ($request->user)['id'];
 
-        $teacher = UserTeacher::with(['auditorium', 'groups', 'teacherSubject'])->find($teacherId);
+        $teacher = UserTeacher::with(['auditorium', 'groups', 'teacherSubject', 'teacherSubject.teacher', 'teacherSubject.subject', 'teacherSubject.groupSubjects'])->find($teacherId);
 
         return response()->json($teacher, 200);
     }
