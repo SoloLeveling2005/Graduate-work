@@ -51,6 +51,8 @@ class MainPageController extends Controller
         //     return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
         // })->sortBy('number')->values()->all();
 
-        return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher'])->get(), 200);
+        return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher'])->get()->filter(function($item) use ($teacherId) {
+            return $item->subject->teacherSubject->userTeacherId == $teacherId;
+        }), 200);
     }
 }
