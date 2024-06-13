@@ -35,7 +35,7 @@ Route::post('signout', [TeacherAuthController::class, 'signout']);
 Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
     Route::get('me', function(Request $request) {
-        $teacherId = ($request->teacher)['id'];
+        $teacherId = ($request->user)['id'];
 
         $teacher = UserTeacher::with(['auditorium', 'groups', 'teacherSubject', 'scheduleClasses'])->find($teacherId);
 
