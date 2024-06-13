@@ -58,7 +58,7 @@ class GroupController extends Controller
         });
         $schedules = $group->schedules->filter(function($item) use ($teacherId) {
             return $item->subject->teacherSubject->userTeacherId == $teacherId;
-        });;
+        })->groupBy('dayWeek');
         $students = $group->students;
 
         return response()->json($schedules, 200);
