@@ -10,6 +10,8 @@ use App\Http\Controllers\Teacher\LibraryController;
 use App\Http\Controllers\Teacher\CalendarController;
 use App\Http\Controllers\Classroom\ClassroomController;
 use App\Http\Controllers\Teacher\MeController;
+use App\Http\Controllers\Teacher\MainPageController;
+
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
@@ -58,6 +60,13 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
             
         });
     });
+
+    Route::prefix('mainPage')->group(function() {
+        // Route::get('getCurrentLessonTestVersion', [MainPageController::class, 'getCurrentLessonTestVersion']);
+        // Route::get('getCurrentLesson', [MainPageController::class, 'getCurrentLesson']);
+        Route::get('getTodayShedule', [MainPageController::class, 'getTodayShedule']);
+    });
+
 
     Route::prefix('schedule')->group(function() {
         Route::get('list', [ScheduleController::class, 'list']);
