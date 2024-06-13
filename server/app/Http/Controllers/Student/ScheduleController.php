@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Models\GroupModal;
+use App\Models\GroupScheduleClass;
+
 class ScheduleController extends Controller
 {
     public function list(Request $request)
     {
         $user = $request->user;
         $groupId = $user['groupId'];
-        
+
         $validated = $request->validate([
             'dayWeek' => 'integer|min:1|max:6',
         ]);
