@@ -33,7 +33,7 @@ class MainPageController extends Controller
             }
         }
 
-        return null;
+        return 'Отдых';
     }
 
     public function getCurrentLesson(Request $request) {
