@@ -45,6 +45,36 @@ class CalendarController extends Controller
         return response()->json($events);
     }
 
+    public function eventsByDateRange(Request $request)
+    {
+        $startDate = $request->input('start_date', Carbon::now()->startOfMonth()->toDateString());
+        $endDate = $request->input('end_date', Carbon::now()->endOfMonth()->toDateString());
+
+        $validated = $request->validate([
+            'start_date' => 'required|date|before_or_equal:end_date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+        ]);
+
+        $teacher = $request->user();
+        $teacherId = $teacher->id;
+
+        $groups = DB::table('groups')
+            ->distinct()
+            ->join('group_subjects', 'groups.id', '=', 'group_subjects.groupId')
+            ->join('user_teacher_subjects', 'group_subjects.teacherSubjectId', '=', 'user_teacher_subjects.id')
+            ->where('user_teacher_subjects.userTeacherId', $teacherId)
+            ->select('groups.id')
+            ->get();
+
+        $groupIds = $groups->pluck('id');
+
+        $events = CalendarEvent::whereIn('groupId', $groupIds)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->get();
+
+        return response()->json($events);
+    }
+
 
     public function createEvent(Request $request)
     {
