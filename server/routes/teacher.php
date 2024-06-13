@@ -42,6 +42,8 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
         Route::prefix('{groupId}')->group(function () {
 
+            Route::get('info', [GroupController::class, 'info']);
+
             // Получение всех предметов преподавателя, которые можно указать в запросе на замены
             Route::get('teacherSubjectList', [TeacherController::class ,'teacherSubjectList']);
 

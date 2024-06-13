@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\UserTeacher as UserTeacher;
+use App\Models\Group as Group;
 
 class GroupController extends Controller
 {
@@ -36,5 +37,29 @@ class GroupController extends Controller
         $data = UserTeacher::with(['groups'])
             ->find($teacherId);
         dd($data);
+    }
+
+    public function info(Request $request, $groupId) {
+        $teacher = $request->user;
+        $teacherId = $teacher['id'];
+
+        $group = Group::find($groupId);
+
+        if (!$group) {
+            return response()->json(['error' => '404 Group Not Found', 'status'=>404], 404);
+        }
+
+        // TODO - Какие предметы ведет в группе этот препод
+        // TODO - Какое расписание на неделю у этого препода в этой группе
+        // TODO - Список группы
+
+        $info = [
+            'id' => $group->id,
+            'title' => $group->title,
+            'specialization' => $group->department,
+            'curator' => $group->curator,
+        ];
+
+        return response()->json($info, 200);
     }
 }
