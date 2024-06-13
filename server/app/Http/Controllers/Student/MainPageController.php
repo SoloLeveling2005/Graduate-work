@@ -78,7 +78,7 @@ class MainPageController extends Controller
     public function getCurrentLesson(Request $request) {
         $studentId = ($request->user)['id'];
 
-        $student = UserStudent::with(['group.schedules.subject.teacherSubject.teacher','group.schedules.subject.teacherSubject.subject'])->find($studentId);
+        $student = UserStudent::with(['group.schedules.subject.teacherSubject.teacher.auditorium','group.schedules.subject.teacherSubject.subject'])->find($studentId);
         $subgroup = $student->subgroup;
 
         // Получение текущей даты и времени в Астане

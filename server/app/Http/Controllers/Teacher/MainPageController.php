@@ -51,4 +51,28 @@ class MainPageController extends Controller
             return $item->subject->teacherSubject->userTeacherId == $teacherId;
         })->sortBy('number')->groupBy('dayWeek'), 200);
     }
+
+    public function getCurrentLesson(Request $request) {
+        $teacherId = ($request->user)['id'];
+
+        $teacher = UserTeacher::find($teacherId);
+
+        // Получение текущей даты и времени в Астане
+        $currentDateTime = Carbon::now('Asia/Almaty');
+
+        // Получение текущего дня недели (от 1 до 7)
+        $dayOfWeek = $currentDateTime->dayOfWeekIso;
+
+        $schedule = GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher.auditorium'])->get()->filter(function($item) use ($teacherId) {
+            return $item->subject->teacherSubject->userTeacherId == $teacherId;
+        })->sortBy('number')->values();
+
+
+        $currentDateTime = Carbon::now('Asia/Almaty');
+        $currentClass = self::getCurrentClass($currentDateTime);
+
+        $desiredObject = $schedule->firstWhere('number', $currentClass);
+
+        return response()->json($desiredObject ?? (str_contains($currentClass, '.5') ? ['status' => "перемена"] : ['status' => 'отдых']), 200);
+    }
 }
