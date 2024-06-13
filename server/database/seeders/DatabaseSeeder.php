@@ -225,8 +225,9 @@ class DatabaseSeeder extends Seeder
         $groupSubjects = [
             ['group' => 'П-21-57к', 'teacher' => 'Попов Денис Валентинович', 'subjects' => ['Основы Frontend', 'Разработка мобильных приложений']],
             ['group' => 'П-21-57к', 'teacher' => 'Иванов Иван Иванович', 'subjects' => ['Математика', 'Информатика']],
-            ['group' => 'П-21-58к', 'teacher' => 'Иванов Иван Иванович', 'subjects' => ['Математика', 'Информатика']],
             ['group' => 'П-21-57к', 'teacher' => 'Сидоров Петр Петрович', 'subjects' => ['Физкультура', 'География']],
+            ['group' => 'П-21-57к', 'teacher' => 'Смирнова Анна Владимировна', 'subjects' => ['Химия', 'Биология']],
+            ['group' => 'П-21-58к', 'teacher' => 'Иванов Иван Иванович', 'subjects' => ['Математика', 'Информатика']],
             ['group' => 'ТИ-21-21', 'teacher' => 'Сидоров Петр Петрович', 'subjects' => ['Физкультура', 'География']],
             ['group' => 'ТИ-21-22', 'teacher' => 'Смирнова Анна Владимировна', 'subjects' => ['Химия', 'Биология']],
             ['group' => 'ТИБ-21-01', 'teacher' => 'Кузнецов Андрей Андреевич', 'subjects' => ['Основа права', 'Основа предпринимательства']],
@@ -291,7 +292,8 @@ class DatabaseSeeder extends Seeder
 
 
         // ^ Расписание
-$scheduleClasses = [
+
+ $scheduleClasses = [
     // Понедельник
     ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 1], // Основы Frontend, Попов Денис Валентинович
     ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 1], // Разработка мобильных приложений, Попов Денис Валентинович
@@ -300,46 +302,46 @@ $scheduleClasses = [
     ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 1], // Информатика, Иванов Иван Иванович
 
     // Вторник
-    ['groupId' => 1, 'teacherSubjectId' => 6, 'number' => 1, 'dayWeek' => 2], // Основа права, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 7, 'number' => 2, 'dayWeek' => 2], // Основа предпринимательства, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 8, 'number' => 3, 'dayWeek' => 2], // Физкультура, Сидоров Петр Петрович
-    ['groupId' => 1, 'teacherSubjectId' => 9, 'number' => 4, 'dayWeek' => 2], // География, Сидоров Петр Петрович
-    ['groupId' => 1, 'teacherSubjectId' => 10, 'number' => 5, 'dayWeek' => 2], // Химия, Смирнова Анна Владимировна
+    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 2], // Основа права, Кузнецов Андрей Андреевич
+    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 2], // Основа предпринимательства, Кузнецов Андрей Андреевич
+    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 2], // Физкультура, Сидоров Петр Петрович
+    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 2], // География, Сидоров Петр Петрович
+    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 2], // Химия, Смирнова Анна Владимировна
 
     // Среда
-    ['groupId' => 1, 'teacherSubjectId' => 11, 'number' => 1, 'dayWeek' => 3], // Биология, Смирнова Анна Владимировна
-    ['groupId' => 1, 'teacherSubjectId' => 12, 'number' => 2, 'dayWeek' => 3], // Физика, Гульнар Нурхамитовна
-    ['groupId' => 1, 'teacherSubjectId' => 13, 'number' => 3, 'dayWeek' => 3], // Основы Frontend, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 14, 'number' => 4, 'dayWeek' => 3], // Разработка мобильных приложений, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 15, 'number' => 5, 'dayWeek' => 3], // Математика, Иванов Иван Иванович
+    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 3], // Биология, Смирнова Анна Владимировна
+    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 3], // Физика, Гульнар Нурхамитовна
+    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 3], // Основы Frontend, Попов Денис Валентинович
+    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 3], // Разработка мобильных приложений, Попов Денис Валентинович
+    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 3], // Математика, Иванов Иван Иванович
 
     // Четверг
-    ['groupId' => 1, 'teacherSubjectId' => 16, 'number' => 1, 'dayWeek' => 4], // Информатика, Иванов Иван Иванович
-    ['groupId' => 1, 'teacherSubjectId' => 17, 'number' => 2, 'dayWeek' => 4], // Основа права, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 18, 'number' => 3, 'dayWeek' => 4], // Основа предпринимательства, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 19, 'number' => 4, 'dayWeek' => 4], // Физкультура, Сидоров Петр Петрович
-    ['groupId' => 1, 'teacherSubjectId' => 20, 'number' => 5, 'dayWeek' => 4], // География, Сидоров Петр Петрович
+    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 4], // Информатика, Иванов Иван Иванович
+    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 4], // Основа права, Кузнецов Андрей Андреевич
+    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 4], // Основа предпринимательства, Кузнецов Андрей Андреевич
+    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 4], // Физкультура, Сидоров Петр Петрович
+    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 4], // География, Сидоров Петр Петрович
 
     // Пятница
-    ['groupId' => 1, 'teacherSubjectId' => 21, 'number' => 1, 'dayWeek' => 5], // Химия, Смирнова Анна Владимировна
-    ['groupId' => 1, 'teacherSubjectId' => 22, 'number' => 2, 'dayWeek' => 5], // Биология, Смирнова Анна Владимировна
-    ['groupId' => 1, 'teacherSubjectId' => 23, 'number' => 3, 'dayWeek' => 5], // Физика, Гульнар Нурхамитовна
-    ['groupId' => 1, 'teacherSubjectId' => 24, 'number' => 4, 'dayWeek' => 5], // Основы Frontend, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 25, 'number' => 5, 'dayWeek' => 5], // Разработка мобильных приложений, Попов Денис Валентинович
+    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 5], // Химия, Смирнова Анна Владимировна
+    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 5], // Биология, Смирнова Анна Владимировна
+    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 5], // Физика, Гульнар Нурхамитовна
+    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 5], // Основы Frontend, Попов Денис Валентинович
+    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 5], // Разработка мобильных приложений, Попов Денис Валентинович
 
     // Суббота
-    ['groupId' => 1, 'teacherSubjectId' => 26, 'number' => 1, 'dayWeek' => 6], // Математика, Иванов Иван Иванович
-    ['groupId' => 1, 'teacherSubjectId' => 27, 'number' => 2, 'dayWeek' => 6], // Информатика, Иванов Иван Иванович
-    ['groupId' => 1, 'teacherSubjectId' => 28, 'number' => 3, 'dayWeek' => 6], // Основа права, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 29, 'number' => 4, 'dayWeek' => 6], // Основа предпринимательства, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 30, 'number' => 5, 'dayWeek' => 6], // Физкультура, Сидоров Петр Петрович
+    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 6], // Математика, Иванов Иван Иванович
+    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 6], // Информатика, Иванов Иван Иванович
+    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 6], // Основа права, Кузнецов Андрей Андреевич
+    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 6], // Основа предпринимательства, Кузнецов Андрей Андреевич
+    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 6], // Физкультура, Сидоров Петр Петрович
 
     // Воскресенье
-    ['groupId' => 1, 'teacherSubjectId' => 31, 'number' => 1, 'dayWeek' => 7], // География, Сидоров Петр Петрович
-    ['groupId' => 1, 'teacherSubjectId' => 32, 'number' => 2, 'dayWeek' => 7], // Химия, Смирнова Анна Владимировна
-    ['groupId' => 1, 'teacherSubjectId' => 33, 'number' => 3, 'dayWeek' => 7], // Биология, Смирнова Анна Владимировна
-    ['groupId' => 1, 'teacherSubjectId' => 34, 'number' => 4, 'dayWeek' => 7], // Физика, Гульнар Нурхамитовна
-    ['groupId' => 1, 'teacherSubjectId' => 35, 'number' => 5, 'dayWeek' => 7], // Основы Frontend, Попов Денис Валентинович
+    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 7], // География, Сидоров Петр Петрович
+    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 7], // Химия, Смирнова Анна Владимировна
+    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 7], // Биология, Смирнова Анна Владимировна
+    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 7], // Физика, Гульнар Нурхамитовна
+    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 7], // Основы Frontend, Попов Денис Валентинович
 ];
 
 foreach ($scheduleClasses as $scheduleClass) {
@@ -353,8 +355,6 @@ foreach ($scheduleClasses as $scheduleClass) {
         'updated_at' => now(),
     ]);
 }
-
-                
 
         
         
