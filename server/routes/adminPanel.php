@@ -15,6 +15,7 @@ use App\Http\Controllers\AdminPanel\ScheduleController;
 use App\Http\Controllers\AdminPanel\UserController;
 use App\Http\Controllers\AdminPanel\ReplacementController;
 use App\Http\Controllers\AdminPanel\GroupStudentController;
+use App\Http\Controllers\AdminPanel\MeController;
 
 use App\Http\Middleware\AdminPanel\AdminAuthMiddleware;
 use App\Http\Middleware\AdminPanel\SuperAdminMiddleware;
@@ -28,6 +29,8 @@ use App\Http\Middleware\AdminPanel\ScheduleCoordinatorAdminMiddleware;
 
     // Выход админа. Удаляем токен.
     Route::post('signout', [AdminAuthController::class, 'signout']);
+
+    Route::get('me', [MeController::class, 'me']);
 
     // Middleware аутентификации админа (тут же получение и встройка в $request информация об админе)
     Route::middleware(AdminAuthMiddleware::class)->group(function () {
