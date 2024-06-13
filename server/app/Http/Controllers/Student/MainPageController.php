@@ -48,10 +48,10 @@ class MainPageController extends Controller
         $dayOfWeek = $currentDateTime->dayOfWeekIso;
 
         $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek) {
-            return $item['number'] == $dayOfWeek;
+            return $item['dayWeek'] == $dayOfWeek;
         });
 
-        return response()->json($student->group->schedules, 200);
+        return response()->json($schedule, 200);
     }
 
     public function getTodayShedule(Request $request) {
