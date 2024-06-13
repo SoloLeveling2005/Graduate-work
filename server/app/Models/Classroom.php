@@ -13,7 +13,7 @@ class Classroom extends Model
 
     public function groupSubject()
     {
-        return $this->hasMany(GroupSubject::class, 'groupSubjectId');
+        return $this->hasMany(GroupSubject::class, 'id', 'groupSubjectId');
     }
 
     public function materials()
