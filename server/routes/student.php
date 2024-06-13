@@ -9,6 +9,7 @@ use App\Http\Controllers\Student\LibraryController;
 use App\Http\Controllers\Student\CalendarController;
 use App\Http\Controllers\Student\MeController;
 use App\Http\Controllers\Student\MainPageController;
+use App\Http\Controllers\Student\ScheduleController;
 
 
 /*
@@ -38,8 +39,10 @@ Route::middleware(StudentAuthMiddleware::class)->group(function() {
         Route::get('getTodayShedule', [MainPageController::class, 'getTodayShedule']);
     });
 
-    
-    
+    Route::prefix('schedule')->group(function() {
+        Route::get('list', [ScheduleController::class, 'list']);
+    }); 
+
     Route::prefix('library')->group(function() {
 
         Route::get('books/search', [LibraryController::class, 'search']);
