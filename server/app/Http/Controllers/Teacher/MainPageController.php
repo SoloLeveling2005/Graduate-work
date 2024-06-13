@@ -47,7 +47,7 @@ class MainPageController extends Controller
         // Получение текущего дня недели (от 1 до 7)
         $dayOfWeek = $currentDateTime->dayOfWeekIso;
 
-        return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher'])->get()->filter(function($item) use ($teacherId) {
+        return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher.auditorium'])->get()->filter(function($item) use ($teacherId) {
             return $item->subject->teacherSubject->userTeacherId == $teacherId;
         })->sortBy('number')->groupBy('dayWeek'), 200);
     }
