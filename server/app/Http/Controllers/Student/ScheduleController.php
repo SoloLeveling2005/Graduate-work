@@ -51,7 +51,7 @@ class ScheduleController extends Controller
                         'auditorium' => $item->subject->teacherSubject->teacher->auditorium->number ?? null,
                     ];
                 })->filter(function($item) use ($subgroup) {
-                    return $item->subgroup == null ||  $item->subgroup == $subgroup; 
+                    return $item['subgroup'] == null ||  $item['subgroup'] == $subgroup; 
                 });
             }
         }
