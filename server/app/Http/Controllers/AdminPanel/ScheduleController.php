@@ -38,9 +38,10 @@ class ScheduleController extends Controller
                 ->get();
             
             foreach ([1,2,3,4,5,6,7] as $dayWeek) {
-                $dates[] = GroupScheduleClass::with(['subject.teacherSubject.teacher.auditorium'])->where('groupId', $groupId)->where('dayWeek', $dayWeek)->get();
+                $dates[] = GroupScheduleClass::where('groupId', $groupId)->where('dayWeek', $dayWeek)->get();
             }
         }
+        // with(['subject.teacherSubject.teacher.auditorium'])->
 
 
         return response()->json([
