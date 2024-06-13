@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\UserTeacher;
+use App\Models\GroupScheduleClass;
 
 class MainPageController extends Controller
 {
@@ -38,7 +39,7 @@ class MainPageController extends Controller
     public function getTodayShedule(Request $request) {
         $teacherId = ($request->user)['id'];
 
-        $teacher = UserTeacher::with(['scheduleClasses'])->find($teacherId);
+        $teacher = UserTeacher::find($teacherId);
 
         // Получение текущей даты и времени в Астане
         $currentDateTime = Carbon::now('Asia/Almaty');
@@ -50,6 +51,6 @@ class MainPageController extends Controller
         //     return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
         // })->sortBy('number')->values()->all();
 
-        return response()->json($teacher, 200);
+        return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher'])->get(), 200);
     }
 }
