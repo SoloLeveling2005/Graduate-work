@@ -11,9 +11,9 @@ class Classroom extends Model
 
     protected $guarded = [];
 
-    public function groups()
+    public function groupSubject()
     {
-        return $this->hasMany(GroupSubject::class, 'groupId');
+        return $this->hasMany(GroupSubject::class, 'groupSubjectId');
     }
 
     public function materials()
