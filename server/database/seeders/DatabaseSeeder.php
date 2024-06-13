@@ -143,12 +143,12 @@ class DatabaseSeeder extends Seeder
         // ^ Преподаватели
 
         $teachers = [
-            ['login' => self::toLogin('Попов Денис Валентинович'), 'password' => 'popov12', 'fio' => 'Попов Денис Валентинович', 'auditoria' => 3213],
-            ['login' => self::toLogin('Гульнар Нурхамитовна'), 'password' => 'gulnar12', 'fio' => 'Гульнар Нурхамитовна', 'auditoria' => 2117],
-            ['login' => self::toLogin('Иванов Иван Иванович'), 'password' => 'ivanov12', 'fio' => 'Иванов Иван Иванович', 'auditoria' => 1010],
-            ['login' => self::toLogin('Сидоров Петр Петрович'), 'password' => 'sidorov12', 'fio' => 'Сидоров Петр Петрович', 'auditoria' => 2020],
-            ['login' => self::toLogin('Смирнова Анна Владимировна'), 'password' => 'smirnova12', 'fio' => 'Смирнова Анна Владимировна', 'auditoria' => 3030],
-            ['login' => self::toLogin('Кузнецов Андрей Андреевич'), 'password' => 'kuznetsov12', 'fio' => 'Кузнецов Андрей Андреевич', 'auditoria' => 4040],
+            ['login' => self::toLogin('Попов Денис Валентинович'), 'password' => 123456780, 'fio' => 'Попов Денис Валентинович', 'auditoria' => 3213],
+            ['login' => self::toLogin('Гульнар Нурхамитовна'), 'password' => 123456780, 'fio' => 'Гульнар Нурхамитовна', 'auditoria' => 2117],
+            ['login' => self::toLogin('Иванов Иван Иванович'), 'password' => 123456780, 'fio' => 'Иванов Иван Иванович', 'auditoria' => 1010],
+            ['login' => self::toLogin('Сидоров Петр Петрович'), 'password' => 123456780, 'fio' => 'Сидоров Петр Петрович', 'auditoria' => 2020],
+            ['login' => self::toLogin('Смирнова Анна Владимировна'), 'password' => 123456780, 'fio' => 'Смирнова Анна Владимировна', 'auditoria' => 3030],
+            ['login' => self::toLogin('Кузнецов Андрей Андреевич'), 'password' => 123456780, 'fio' => 'Кузнецов Андрей Андреевич', 'auditoria' => 4040],
         ];
 
         foreach ($teachers as $teacher) {
@@ -260,32 +260,31 @@ class DatabaseSeeder extends Seeder
 
         // ^ Студенты
 
-        DB::table('user_students')->insert([
-            'login' => self::toLogin('Ульданов Мансур Азатович'),
-            'password' => Hash::make('uldanov12'),
-            'fio' => 'Ульданов Мансур Азатович',
-            'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-            'subgroup' => 'B',
-            'created_at'=>now()
-        ]);
+        $students = [
+            ['login' => 'Ульданов Мансур Азатович', 'password' => 123456780, 'fio' => 'Ульданов Мансур Азатович', 'group' => 'П-21-57к', 'subgroup' => 'B'],
+            ['login' => 'Кишибаев Нуржан Еркешович', 'password' => 123456780, 'fio' => 'Кишибаев Нуржан Еркешович', 'group' => 'П-21-57к', 'subgroup' => 'A'],
+            ['login' => 'Ким Богдан Данилович', 'password' => 123456780, 'fio' => 'Ким Богдан Данилович', 'group' => 'П-21-57к', 'subgroup' => 'A'],
+            ['login' => 'Иванова Анна Сергеевна', 'password' => 123456780, 'fio' => 'Иванова Анна Сергеевна', 'group' => 'П-21-58к', 'subgroup' => 'B'],
+            ['login' => 'Петров Александр Дмитриевич', 'password' => 123456780, 'fio' => 'Петров Александр Дмитриевич', 'group' => 'П-21-58к', 'subgroup' => 'A'],
+            ['login' => 'Смирнова Елена Васильевна', 'password' => 123456780, 'fio' => 'Смирнова Елена Васильевна', 'group' => 'ТИ-21-21', 'subgroup' => 'B'],
+            ['login' => 'Кузнецов Михаил Игоревич', 'password' => 123456780, 'fio' => 'Кузнецов Михаил Игоревич', 'group' => 'ТИ-21-21', 'subgroup' => 'A'],
+            ['login' => 'Сидорова Мария Алексеевна', 'password' => 123456780, 'fio' => 'Сидорова Мария Алексеевна', 'group' => 'ТИ-21-22', 'subgroup' => 'B'],
+            ['login' => 'Николаев Дмитрий Петрович', 'password' => 123456780, 'fio' => 'Николаев Дмитрий Петрович', 'group' => 'ТИ-21-22', 'subgroup' => 'A'],
+            ['login' => 'Федоров Сергей Иванович', 'password' => 123456780, 'fio' => 'Федоров Сергей Иванович', 'group' => 'ТИБ-21-01', 'subgroup' => 'B'],
+            ['login' => 'Михайлова Ольга Викторовна', 'password' => 123456780, 'fio' => 'Михайлова Ольга Викторовна', 'group' => 'ТИБ-21-01', 'subgroup' => 'A'],
+        ];
 
-        DB::table('user_students')->insert([
-            'login' => self::toLogin('Кишибаев Нуржан Еркешович'),
-            'password' => Hash::make('kishibaev12'),
-            'fio' => 'Кишибаев Нуржан Еркешович',
-            'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-            'subgroup' => 'A',
-            'created_at'=>now()
-        ]);
+        foreach ($students as $student) {
+            DB::table('user_students')->insert([
+                'login' => self::toLogin($student['login']),
+                'password' => Hash::make($student['password']),
+                'fio' => $student['fio'],
+                'groupId' => DB::table('groups')->where(['title' => $student['group']])->value('id'),
+                'subgroup' => $student['subgroup'],
+                'created_at' => now()
+            ]);
+        }
 
-        DB::table('user_students')->insert([
-            'login' => self::toLogin('Ким Богдан Данилович'),
-            'password' => Hash::make('kim12'),
-            'fio' => 'Ким Богдан Данилович',
-            'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-            'subgroup' => 'A',
-            'created_at'=>now()
-        ]);
         
 
 
