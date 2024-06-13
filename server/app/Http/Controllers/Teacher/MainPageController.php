@@ -53,6 +53,6 @@ class MainPageController extends Controller
 
         return response()->json(GroupScheduleClass::with(['subject.teacherSubject.subject','subject.teacherSubject.teacher'])->get()->filter(function($item) use ($teacherId) {
             return $item->subject->teacherSubject->userTeacherId == $teacherId;
-        }), 200);
+        })->groupBy('dayWeek'), 200);
     }
 }
