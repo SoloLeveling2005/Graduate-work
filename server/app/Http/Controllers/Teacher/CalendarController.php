@@ -49,8 +49,8 @@ class CalendarController extends Controller
     public function eventsByDateRange(Request $request)
     {
         $validated = $request->validate([
-            'start_date' => 'nullable|date|before_or_equal:end_date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
         ]);
 
         $startDate = $request->input('start_date', Carbon::now()->startOfMonth()->toDateString());
