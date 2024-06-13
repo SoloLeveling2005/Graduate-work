@@ -48,5 +48,7 @@ Route::middleware(StudentAuthMiddleware::class)->group(function() {
     });
     Route::prefix('calendar')->group(function() {
         Route::get('events', [CalendarController::class, 'eventsByDate']);
+        Route::get('allEvents', [CalendarController::class, 'allEvents']);
+        Route::get('eventsByDateRange', [CalendarController::class, 'eventsByDateRange']);
     });
 });

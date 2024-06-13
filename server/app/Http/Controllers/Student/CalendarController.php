@@ -32,4 +32,33 @@ class CalendarController extends Controller
             ->get();
         return response()->json($events);
     }
+
+    public function allEvents(Request $request) {
+        $user = $request->user;
+        $groupId = $user['groupId'];
+
+        $events = CalendarEvent::where('groupId', $groupId)->get();
+        return response()->json($events);
+    }
+
+    public function eventsByDateRange(Request $request)
+    {
+        $validated = $request->validate([
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+        ]);
+
+        $startDate = $request->input('start_date', Carbon::now()->startOfMonth()->toDateString());
+        $endDate = $request->input('end_date', Carbon::now()->endOfMonth()->toDateString());
+
+        $student = $request->user;
+        $studentId = $student['id'];
+        $groupId = $user['groupId'];
+
+        $events = CalendarEvent::where('groupId', $groupId)
+            ->whereBetween('date', [$startDate, $endDate])
+            ->get();
+
+        return response()->json($events);
+    }
 }

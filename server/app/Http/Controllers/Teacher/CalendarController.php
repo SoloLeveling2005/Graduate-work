@@ -76,6 +76,25 @@ class CalendarController extends Controller
         return response()->json($events);
     }
 
+    public function allEvents(Request $request) {
+        $teacher = $request->user;
+        $teacherId = $teacher['id'];
+
+        $groups = DB::table('groups')
+            ->distinct()
+            ->join('group_subjects', 'groups.id', '=', 'group_subjects.groupId')
+            ->join('user_teacher_subjects', 'group_subjects.teacherSubjectId', '=', 'user_teacher_subjects.id')
+            ->where('user_teacher_subjects.userTeacherId', $teacherId)
+            ->select('groups.id')
+            ->get();
+
+        $groupIds = $groups->pluck('id');
+
+        $events = CalendarEvent::whereIn('groupId', $groupIds)
+            ->get();
+        return response()->json($events);
+    }
+
 
     public function createEvent(Request $request)
     {

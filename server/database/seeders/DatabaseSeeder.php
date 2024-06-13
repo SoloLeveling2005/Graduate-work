@@ -290,32 +290,39 @@ class DatabaseSeeder extends Seeder
 
         // ^ Расписание
 
-        // DB::table('group_schedule_classes')->insert([
-        //     'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-        //     'date' => '2024-01-01',
-        //     'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
-        //     'number' => 2,
-        //     'subgroup' => '',
-        //     'created_at'=>now()
-        // ]);
+        $scheduleClasses = [];
+        $daysOfWeek = [1, 2, 3, 4, 5]; // Понедельник - Пятница
+        $periods = [1, 2, 3, 4, 5, 6]; // Номера пар в день (1-8)
 
-        // DB::table('group_schedule_classes')->insert([
-        //     'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-        //     'date' => '2024-01-01',
-        //     'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
-        //     'number' => 3,
-        //     'subgroup' => '',
-        //     'created_at'=>now()
-        // ]);
+        $groups = DB::table('groups')->pluck('id');
+        $teachers = DB::table('user_teachers')->pluck('id');
 
-        // DB::table('group_schedule_classes')->insert([
-        //     'groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id'),
-        //     'date' => '2024-01-01',
-        //     'subjectId' => DB::table('group_subjects')->where(['groupId' => DB::table('groups')->where(['title'=>'П-21-57к'])->value('id')])->value('id'),
-        //     'number' => 4,
-        //     'subgroup' => '',
-        //     'created_at'=>now()
-        // ]);
+        foreach ($groups as $groupId) {
+            foreach ($daysOfWeek as $dayWeek) {
+                foreach ($periods as $number) {
+                    if (count($scheduleClasses) >= 40) break 3;
+                    
+                    $teacherId = $teachers->random();
+                    $subjectId = DB::table('user_teacher_subjects')
+                        ->where('userTeacherId', $teacherId)
+                        ->inRandomOrder()
+                        ->value('id');
+                    
+                    $scheduleClasses[] = [
+                        'groupId' => $groupId,
+                        'subjectId' => $subjectId,
+                        'subgroup' => null,
+                        'number' => $number,
+                        'dayWeek' => $dayWeek,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ];
+                }
+            }
+        }
+
+        DB::table('group_schedule_classes')->insert($scheduleClasses);
+
 
         
 
