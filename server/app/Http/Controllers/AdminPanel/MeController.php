@@ -13,8 +13,6 @@ class MeController extends Controller
         $adminId = ($request->user)['id'];
         $admin = ($request->user);
 
-        // $admin = UserAdmin::with(['privileges'])->find($adminId);
-
         return response()->json($admin, 200);
     }
 }
