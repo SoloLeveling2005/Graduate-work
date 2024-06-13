@@ -8,6 +8,7 @@ use App\Http\Controllers\Teacher\ScheduleController as ScheduleController;
 use App\Http\Controllers\Teacher\TeacherController as TeacherController;
 use App\Http\Controllers\Teacher\LibraryController;
 use App\Http\Controllers\Teacher\CalendarController;
+use App\Http\Controllers\Classroom\ClassroomController;
 
 use App\Http\Middleware\Teacher\TeacherAuthMiddleware as TeacherAuthMiddleware;
 
@@ -36,7 +37,7 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
         Route::prefix('{groupId}')->group(function () {
 
-            // TODO Получение всех предметов преподавателя, которые можно указать в запросе на замены
+            // Получение всех предметов преподавателя, которые можно указать в запросе на замены
             Route::get('teacherSubjectList', [TeacherController::class ,'teacherSubjectList']);
 
 
@@ -66,7 +67,7 @@ Route::middleware(TeacherAuthMiddleware::class)->group(function() {
 
     Route::prefix('classroom')->group(function() {
         // TODO - Список классрумов
-        Route::get('list', [CalendarController::class, 'indexForTeachers']);
+        Route::get('list', [ClassroomController::class, 'indexForTeachers']);
     });
 
 
