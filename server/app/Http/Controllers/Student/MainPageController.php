@@ -84,14 +84,12 @@ class MainPageController extends Controller
         // Получение текущей даты и времени в Астане
         $currentDateTime = Carbon::now('Asia/Almaty');
 
-
         // Получение текущего дня недели (от 1 до 7)
         $dayOfWeek = $currentDateTime->dayOfWeekIso;
 
         $schedule = $student->group->schedules->filter(function ($item) use ($dayOfWeek, $subgroup) {
             return ($item['dayWeek'] == $dayOfWeek) && ($item['subgroup'] == $subgroup || $item['subgroup'] == null);
         })->sortBy('number')->values();
-
 
         $currentDateTime = Carbon::now('Asia/Almaty');
         $currentClass = self::getCurrentClass($currentDateTime);

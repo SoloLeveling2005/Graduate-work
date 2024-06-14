@@ -293,61 +293,98 @@ class DatabaseSeeder extends Seeder
 
         // ^ Расписание
 
- $scheduleClasses = [
-    // Понедельник
-    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 1], // Основы Frontend, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 1], // Разработка мобильных приложений, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 1], // Физика, Гульнар Нурхамитовна
-    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 1], // Математика, Иванов Иван Иванович
-    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 1], // Информатика, Иванов Иван Иванович
+        $scheduleClasses = [
+            // Понедельник
+            ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 1], 
+            ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 1], 
+            ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 1], 
+            ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 1], 
+            ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 1], 
 
-    // Вторник
-    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 2], // Основа права, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 2], // Основа предпринимательства, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 2], // Физкультура, Сидоров Петр Петрович
-    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 4, 'dayWeek' => 2], // География, Сидоров Петр Петрович
-    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 2], // Химия, Смирнова Анна Владимировна
+            // Вторник
+            ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 2], 
+            ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 2], 
+            ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 4, 'dayWeek' => 2], 
+            ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 2], 
 
-    // Среда
-    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 1, 'dayWeek' => 3], // Биология, Смирнова Анна Владимировна
-    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 2, 'dayWeek' => 3], // Физика, Гульнар Нурхамитовна
-    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 3, 'dayWeek' => 3], // Основы Frontend, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 3], // Разработка мобильных приложений, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 5, 'dayWeek' => 3], // Математика, Иванов Иван Иванович
+            // Среда
+            ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 1, 'dayWeek' => 3], 
+            ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 2, 'dayWeek' => 3], 
+            ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 3, 'dayWeek' => 3], 
+            ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 3], 
+            ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 5, 'dayWeek' => 3], 
 
-    // Четверг
-    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 4], // Информатика, Иванов Иван Иванович
-    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 4], // Основа права, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 4], // Основа предпринимательства, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 4], // Физкультура, Сидоров Петр Петрович
-    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 4], // География, Сидоров Петр Петрович
+            // Четверг
+            ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 4], 
+            ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 4], 
+            ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 4], 
+            ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 4], 
 
-    // Пятница
-    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 5], // Биология, Смирнова Анна Владимировна
-    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 5], // Физика, Гульнар Нурхамитовна
-    ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 4, 'dayWeek' => 5], // Основы Frontend, Попов Денис Валентинович
-    ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 5], // Разработка мобильных приложений, Попов Денис Валентинович
+            // Пятница
+            ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 2, 'dayWeek' => 5], 
+            ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 5], 
+            ['groupId' => 1, 'teacherSubjectId' => 3, 'number' => 4, 'dayWeek' => 5], 
+            ['groupId' => 1, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 5], 
 
-    // Суббота
-    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 6], // Математика, Иванов Иван Иванович
-    ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 2, 'dayWeek' => 6], // Информатика, Иванов Иван Иванович
-    ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 3, 'dayWeek' => 6], // Основа права, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 6], // Основа предпринимательства, Кузнецов Андрей Андреевич
-    ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 5, 'dayWeek' => 6], // Физкультура, Сидоров Петр Петрович
+            // Суббота
+            ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 1, 'dayWeek' => 6], 
+            ['groupId' => 1, 'teacherSubjectId' => 1, 'number' => 2, 'dayWeek' => 6], 
+            ['groupId' => 1, 'teacherSubjectId' => 2, 'number' => 3, 'dayWeek' => 6], 
+            ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 6], 
+            ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 5, 'dayWeek' => 6],
 
-];
+            // Понедельник
+            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 1, 'dayWeek' => 1], 
+            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 1], 
+            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 3, 'dayWeek' => 1], 
+            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 1], 
+            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 5, 'dayWeek' => 1], 
 
-foreach ($scheduleClasses as $scheduleClass) {
-    DB::table('group_schedule_classes')->insert([
-        'groupId' => DB::table('groups')->where('title', 'П-21-57к')->value('id'),
-        'subjectId' => $scheduleClass['teacherSubjectId'],
-        'subgroup' => null,
-        'number' => $scheduleClass['number'],
-        'dayWeek' => $scheduleClass['dayWeek'],
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
-}
+            // Вторник
+            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 1, 'dayWeek' => 2], 
+            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 2, 'dayWeek' => 2], 
+            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 2], 
+            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 5, 'dayWeek' => 2], 
+
+            // Среда
+            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 1, 'dayWeek' => 3], 
+            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 3], 
+            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 3, 'dayWeek' => 3], 
+            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 4, 'dayWeek' => 3], 
+            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 3], 
+
+            // Четверг
+            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 1, 'dayWeek' => 4], 
+            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 3, 'dayWeek' => 4], 
+            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 4], 
+            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 5, 'dayWeek' => 4], 
+
+            // Пятница
+            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 2, 'dayWeek' => 5], 
+            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 5], 
+            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 4, 'dayWeek' => 5], 
+            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 5, 'dayWeek' => 5], 
+
+            // Суббота
+            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 1, 'dayWeek' => 6], 
+            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 6], 
+            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 3, 'dayWeek' => 6], 
+            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 6], 
+            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 5, 'dayWeek' => 6],
+
+        ];
+
+        foreach ($scheduleClasses as $scheduleClass) {
+            DB::table('group_schedule_classes')->insert([
+                'groupId' => DB::table('groups')->where('title', 'П-21-57к')->value('id'),
+                'subjectId' => $scheduleClass['teacherSubjectId'],
+                'subgroup' => null,
+                'number' => $scheduleClass['number'],
+                'dayWeek' => $scheduleClass['dayWeek'],
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         
         
