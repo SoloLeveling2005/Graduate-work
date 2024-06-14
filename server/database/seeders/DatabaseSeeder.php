@@ -333,52 +333,13 @@ class DatabaseSeeder extends Seeder
             ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 4, 'dayWeek' => 6], 
             ['groupId' => 1, 'teacherSubjectId' => 4, 'number' => 5, 'dayWeek' => 6],
 
-            // Понедельник
-            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 1, 'dayWeek' => 1], 
-            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 1], 
-            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 3, 'dayWeek' => 1], 
-            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 1], 
-            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 5, 'dayWeek' => 1], 
-
-            // Вторник
-            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 1, 'dayWeek' => 2], 
-            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 2, 'dayWeek' => 2], 
-            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 2], 
-            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 5, 'dayWeek' => 2], 
-
-            // Среда
-            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 1, 'dayWeek' => 3], 
-            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 3], 
-            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 3, 'dayWeek' => 3], 
-            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 4, 'dayWeek' => 3], 
-            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 5, 'dayWeek' => 3], 
-
-            // Четверг
-            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 1, 'dayWeek' => 4], 
-            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 3, 'dayWeek' => 4], 
-            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 4], 
-            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 5, 'dayWeek' => 4], 
-
-            // Пятница
-            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 2, 'dayWeek' => 5], 
-            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 3, 'dayWeek' => 5], 
-            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 4, 'dayWeek' => 5], 
-            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 5, 'dayWeek' => 5], 
-
-            // Суббота
-            ['groupId' => 2, 'teacherSubjectId' => 3, 'number' => 1, 'dayWeek' => 6], 
-            ['groupId' => 2, 'teacherSubjectId' => 4, 'number' => 2, 'dayWeek' => 6], 
-            ['groupId' => 2, 'teacherSubjectId' => 5, 'number' => 3, 'dayWeek' => 6], 
-            ['groupId' => 2, 'teacherSubjectId' => 1, 'number' => 4, 'dayWeek' => 6], 
-            ['groupId' => 2, 'teacherSubjectId' => 2, 'number' => 5, 'dayWeek' => 6],
-
         ];
 
         foreach ($scheduleClasses as $scheduleClass) {
             DB::table('group_schedule_classes')->insert([
                 'groupId' => DB::table('groups')->where('title', 'П-21-57к')->value('id'),
                 'subjectId' => $scheduleClass['teacherSubjectId'],
-                'subgroup' => null,
+                'subgroup' => null0,
                 'number' => $scheduleClass['number'],
                 'dayWeek' => $scheduleClass['dayWeek'],
                 'created_at' => now(),
